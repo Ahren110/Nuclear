@@ -212,7 +212,7 @@
                             <div class="playground">
 
                                 <div class="playgroundCode">
-                                  <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> CircularProgress = $.createCanvas({
+                                  <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> CircularProgress = Nuclear.createCanvas({
     sector: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(x, y, r, begin, end, color, clock)</span> </span>{
         <span class="hljs-keyword">var</span> ctx = <span class="hljs-keyword">this</span>.ctx;
         ctx.beginPath();
@@ -261,7 +261,7 @@ setInterval(<span class="hljs-function"><span class="hljs-keyword">function</spa
 
                         </div>
                         <p>
-                            Nuclear通过<code> $.createCanvas</code>或者<code> Nuclear.createCanvas</code>方法基于Canvas的图形组件，这个<code>$</code>或者<code>Nuclear</code>还拥有zepto的选择器、event、touch三大模块的所有方法特性。未来还将支持$.createWebGL和$.createSVG。
+                            Nuclear通过<code> Nuclear.createCanvas</code>或者<code> Nuclear.createCanvas</code>方法基于Canvas的图形组件，这个<code>$</code>或者<code>Nuclear</code>还拥有zepto的选择器、event、touch三大模块的所有方法特性。未来还将支持Nuclear.createWebGL和Nuclear.createSVG。
                         </p>
                     </div>
 
@@ -514,7 +514,7 @@ setInterval(<span class="hljs-function"><span class="hljs-keyword">function</spa
                             <div class="playground">
 
                                 <div class="playgroundCode">
-                                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Alert = $.create({
+                                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Alert = Nuclear.create({
     hide: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
         <span class="hljs-keyword">this</span>.option.display = <span class="hljs-literal">false</span>;
         evt.stopPropagation();
@@ -1218,9 +1218,9 @@ progress.option.value = <span class="hljs-number">0.3</span>;
 
                         </div>
                         <p>
-                            Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，这个例子就是非结构型组件，非结构型组件不需要render方法。非结构型组件只需要传入一个参数option代表该组件的配置。当然，因为Nuclear集成了zepto的core,event和touch模块，所以你也可以使用下面的代码实现同样的效果：
+                            Nuclear通过<code> Nuclear.createAction</code>方法创建非结构型组件，这个例子就是非结构型组件，非结构型组件不需要render方法。非结构型组件只需要传入一个参数option代表该组件的配置。当然，你也可以使用Nuclear+zepto,用下面的代码实现同样的效果：
                         </p>
-                     <pre class="javascript hljs"><code class="js" data-origin="<pre><code class=&quot;js&quot;>var Drag = $.createAction({
+                     <pre class="javascript hljs"><code class="js" data-origin="<pre><code class=&quot;js&quot;>var Drag = Nuclear.createAction({
     install: function () {
         var option = this.option;
         this.currentPosition = { x: 0, y: 0 };
@@ -1273,7 +1273,7 @@ progress.option.value = <span class="hljs-number">0.3</span>;
         this.stopped = false;
     }
 })
-</code></pre>"><span class="hljs-keyword">var</span> Drag = $.createAction({
+</code></pre>"><span class="hljs-keyword">var</span> Drag = Nuclear.createAction({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">var</span> option = <span class="hljs-keyword">this</span>.option;
         <span class="hljs-keyword">this</span>.currentPosition = { x: <span class="hljs-number">0</span>, y: <span class="hljs-number">0</span> };

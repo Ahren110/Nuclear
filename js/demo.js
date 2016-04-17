@@ -686,8 +686,10 @@ new Layout({
     rightWidth: 50,
     bottomHeight: 30,
     container: "#layoutContainer"
-});(function () {
-var CircularProgress = $.createCanvas({
+});
+
+(function () {
+var CircularProgress = Nuclear.createCanvas({
     sector: function (x, y, r, begin, end, color, clock) {
         var ctx = this.ctx;
         ctx.beginPath();
@@ -727,8 +729,12 @@ var cp = new CircularProgress(150, 150, { percent: 0, ringWidth: 15 }, "#circula
 setInterval(function () {
     if (cp.option.percent >= 100) cp.option.percent = 0;
     cp.option.percent++;
-}, 100)})()
-var Nav = $.create({
+}, 100)
+})()
+
+
+
+var Nav = Nuclear.create({
     scrollTo: function (evt, element) {
        
         evt.preventDefault();
