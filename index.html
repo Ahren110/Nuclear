@@ -82,9 +82,9 @@
                         </p>
                     </div>
                     <div class="marketing-col">
-                        <h3>mustachejs</h3>
+                        <h3>任意模板</h3>
                         <p>
-                            Nuclear采用了mustachejs作为自身的模板引擎。mustachejs是 JavaScript 一个语义模板库，通过对view和data的分离来快速构建Web模板。它采用"Logic-less template"（无逻辑模版）的思路，而为了提高模板的可编程性，Nuclear提供了render组装拼接模板
+                            Nuclear默认采用了mustachejs作为自身的模板引擎。它采用"Logic-less template"（无逻辑模版）的思路，而为了提高模板的可编程性，Nuclear提供了render方法组装拼接模板。也可通过重写Nuclear.Tpl.render使用其他模板引擎。
                         </p>
                     </div>
                     <div class="marketing-col">
@@ -131,6 +131,34 @@
                         <p>
                             以前我们的最佳实践里不建议在dom元素上直接声明事件绑定与调用，因为所调用的方法必定要污染全局某个变量，第二是如果该dom加载完成，而js里定义的事件未加载完成则会报脚本错误。而Nuclear解决了这两大痛点，非常建议和支持声明式事件绑定，Nuclear希望在不丢失语义的前提下，通过最少的代码去书写应用程序。上面的代码，你不用担心<code>onsubmit</code>的<code>add</code>方法的上下文信息，Nuclear会帮你处理好这一切。被调用的<code>add</code>方法就是你在 Nuclear.create中定义的add方法。
                         </p>
+                    </div>
+
+                    <div class="example">
+                        <h3>模板引擎可替换</h3>
+<pre class="javascript hljs"><code class="js" >Nuclear.Tpl.render = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(tpl, data)</span></span>{
+    <span class="hljs-keyword">return</span> template.compile(tpl)(data);
+};
+
+<span class="hljs-keyword">var</span> ArtTemplateApp = Nuclear.create({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h1&gt;{{title}}&lt;/h1&gt;\
+                    &lt;ul&gt;\
+                    {{each list as value i}}\
+                        &lt;li&gt;索引 {{i + 1}} ：{{value}}&lt;/li&gt;\
+                    {{/each}}\
+                    &lt;/ul&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">new</span> ArtTemplateApp( {
+    title: <span class="hljs-string">'标签'</span>,
+    list: [<span class="hljs-string">'文艺'</span>, <span class="hljs-string">'博客'</span>, <span class="hljs-string">'摄影'</span>, <span class="hljs-string">'电影'</span>, <span class="hljs-string">'民谣'</span>, <span class="hljs-string">'旅行'</span>, <span class="hljs-string">'吉他'</span>]
+},<span class="hljs-string">"#container"</span>);
+</code></pre>
+
+                        <p>通过重写<code>Nuclear.Tpl.render</code>方法使用其他模板引擎。比如上面的例子就是使用artTemplate！</p>
                     </div>
 
                     <div class="example">
