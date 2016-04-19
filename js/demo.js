@@ -87,7 +87,7 @@ var TodoApp = TodoList.create({
     render: function () {
         return '<div>\
                          <h3>TODO</h3>'
-                  + this._super() +
+                  + this._super.render() +
                   '<form >\
                            <input type="text"  />\
                            <button>Add #{{items.length}}</button>\
@@ -464,7 +464,7 @@ var Tab = Nuclear.create({
     onRefresh: function () {
         this.tabs = this.node.querySelectorAll('.nuclear-tab-nav a');
         var self = this;
-        Nuclear.addEvent(this.tabs, "click", function () {
+       util.addEvent(this.tabs, "click", function () {
             self.option.selectedIndex = Nuclear.getNodeIndex(this);
         });
     },
@@ -532,14 +532,14 @@ var Carousel = Nuclear.create({
     installed: function () {
         this.links = this.nav.querySelectorAll('a');
         var self = this;
-        Nuclear.addEvent(this.links, "click", function () {
+       util.addEvent(this.links, "click", function () {
             self.option.index = this.getAttribute("data-index");
         });
         this.active();
     },
     active: function () {
-        Nuclear.removeClass(this.links, "active");
-        Nuclear.addClass(this.links[this.option.index], "active");
+        util.removeClass(this.links, "active");
+        util.addClass(this.links[this.option.index], "active");
     },
     onOptionChange: function (prop, value, oldValue, path) {
         if (prop === "index") {
@@ -566,7 +566,7 @@ new Carousel({
 
 var Pagination = Nuclear.create({
     install: function () {
-        this.option = Nuclear.merge({
+        this.option = util.merge({
             total: 0,
             pageSize: 10,
             numDisplay: 10,
@@ -598,7 +598,7 @@ var Pagination = Nuclear.create({
 
         this.links = this.node.querySelectorAll(".link");
         var self = this;
-        Nuclear.addEvent(this.links, "click", function (evt) {
+       util.addEvent(this.links, "click", function (evt) {
             self.option.currentPage = parseInt(this.getAttribute("data-pageIndex"));
             evt.preventDefault();
         });

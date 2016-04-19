@@ -242,7 +242,7 @@
                                 <div class="playgroundCode">
                            <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Pagination = Nuclear.create({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.option = Nuclear.merge({
+        <span class="hljs-keyword">this</span>.option = util.merge({
             total: <span class="hljs-number">0</span>,
             pageSize: <span class="hljs-number">10</span>,
             numDisplay: <span class="hljs-number">10</span>,
@@ -273,7 +273,7 @@
         }
         <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">this</span>.node.querySelectorAll(<span class="hljs-string">".link"</span>);
         <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
-        Nuclear.addEvent(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        util.addEvent(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
             self.option.currentPage = <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.getAttribute(<span class="hljs-string">"data-pageIndex"</span>));
             evt.preventDefault();
         });
@@ -364,7 +364,7 @@
                         </div>
                         <p>
                             这个分页使用了非常多的Nuclear特性。这个例子代码量确实不少，而且大量的模板拼接。许多人会吐槽：“拼字符串”真的好吗？这里需要特别说明一下。
-                            <code> mustache.js</code>是logic-less的模板，意思就是专注于渲染，而不建议参杂逻辑的代码在模板里。这是Nuclear选择使用mustache.js的重要原因，因为render方法本身提供了模板的可编程性，所以模板引擎本身不再需要其需要大量的逻辑代码。这也是Nuclear仅仅只有6k的原因。而当我们渲染需要与逻辑紧密关联的时候，模板无法提供更好的表达能力，所以才会出现大量的模板拼接，这并没有什么坏处，仅仅使用模板（任意模板引擎）是无法完成上面功能。上面的render方法内，从上一页、起始点、内部的链接、结束点、下一下，层次非常清晰。<code>Nuclear.merge</code>跟$.extend一样的效果，可以用来合并默认配置，如果你熟悉jQuery的extend,你就知道<code>Nuclear.merge</code>怎么使用。
+                            <code> mustache.js</code>是logic-less的模板，意思就是专注于渲染，而不建议参杂逻辑的代码在模板里。这是Nuclear选择使用mustache.js的重要原因，因为render方法本身提供了模板的可编程性，所以模板引擎本身不再需要其需要大量的逻辑代码。这也是Nuclear仅仅只有6k的原因。而当我们渲染需要与逻辑紧密关联的时候，模板无法提供更好的表达能力，所以才会出现大量的模板拼接，这并没有什么坏处，仅仅使用模板（任意模板引擎）是无法完成上面功能。上面的render方法内，从上一页、起始点、内部的链接、结束点、下一下，层次非常清晰。<code>util.merge</code>跟$.extend一样的效果，可以用来合并默认配置，如果你熟悉jQuery的extend,你就知道<code>util.merge</code>怎么使用。
                         </p>
                     </div>
 
@@ -378,14 +378,14 @@
     installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">this</span>.nav.querySelectorAll(<span class="hljs-string">'a'</span>);
         <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
-        Nuclear.addEvent(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        util.addEvent(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
             self.option.index = <span class="hljs-keyword">this</span>.getAttribute(<span class="hljs-string">"data-index"</span>);
         });
         <span class="hljs-keyword">this</span>.active();
     },
     active: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        Nuclear.removeClass(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"active"</span>);
-        Nuclear.addClass(<span class="hljs-keyword">this</span>.links[<span class="hljs-keyword">this</span>.option.index], <span class="hljs-string">"active"</span>);
+        util.removeClass(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"active"</span>);
+        util.addClass(<span class="hljs-keyword">this</span>.links[<span class="hljs-keyword">this</span>.option.index], <span class="hljs-string">"active"</span>);
     },
     onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
         <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"index"</span>) {
@@ -486,7 +486,7 @@ $.alert = <span class="hljs-function"><span class="hljs-keyword">function</span>
     onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.tabs = <span class="hljs-keyword">this</span>.node.querySelectorAll(<span class="hljs-string">'.nuclear-tab-nav a'</span>);
         <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
-        Nuclear.addEvent(<span class="hljs-keyword">this</span>.tabs, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        util.addEvent(<span class="hljs-keyword">this</span>.tabs, <span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
             self.option.selectedIndex = Nuclear.getNodeIndex(<span class="hljs-keyword">this</span>);
         });
     },
@@ -819,7 +819,7 @@ progress.option.value = <span class="hljs-number">0.3</span>;
 <span class="hljs-keyword">var</span> CountdownButton = Button.create({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-comment">//可通过访问父类方法</span>
-        <span class="hljs-comment">// this._super();              </span>
+        <span class="hljs-comment">// this._super.render();              </span>
     },
     installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.node.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
@@ -884,7 +884,7 @@ progress.option.value = <span class="hljs-number">0.3</span>;
                     </div>
 
                     <p>
-                        Nuclear通过<code> Button.create</code>方法实现组件的继承，继承自Button组件。可以看到子类没有定义render方法，因为它们可以共用一套模板。当然，你也可以重新定义render，也可以通过<code> this._super()</code>访问父类的方法。
+                        Nuclear通过<code> Button.create</code>方法实现组件的继承，继承自Button组件。可以看到子类没有定义render方法，因为它们可以共用一套模板。当然，你也可以重新定义render，也可以通过<code> this._super.render()</code>访问父类的方法。
                     </p>
 
                 </div>
@@ -927,8 +927,7 @@ progress.option.value = <span class="hljs-number">0.3</span>;
     </div>
     <script src="js/marked.min.js"></script>
     <script src="js/nuclear.min.js"></script>
-    <script src="js/drag.js"></script>
-    <script src="js/layout.js"></script>
+    <script src="js/util.js"></script>
     <script src="js/demo.js"></script>
 </body>
 </html>
