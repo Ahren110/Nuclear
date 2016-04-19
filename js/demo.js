@@ -235,212 +235,212 @@ new CountdownButton({
      },"#countdownButtonContainer");
 
 
-new Drag({
-    dragElement: "#dragger1",
-    moveElement: "#dragger1",
-    direction: "y",
-    cursor: "n-resize"
-})
+//new Drag({
+//    dragElement: "#dragger1",
+//    moveElement: "#dragger1",
+//    direction: "y",
+//    cursor: "n-resize"
+//})
 
-new Drag({
-    dragElement: "#dragger2",
-    moveElement: "#dragger2",
-    start: function () {},
-    move: function () {},
-    end: function () {}
-})
+//new Drag({
+//    dragElement: "#dragger2",
+//    moveElement: "#dragger2",
+//    start: function () {},
+//    move: function () {},
+//    end: function () {}
+//})
 
-new Drag({
-    dragElement: "#dragger3",
-    moveElement: "#dragger3",
-    cursor: "e-resize",
-    direction: "x"
-})
+//new Drag({
+//    dragElement: "#dragger3",
+//    moveElement: "#dragger3",
+//    cursor: "e-resize",
+//    direction: "x"
+//})
 
-var PieChart = Nuclear.createCanvas({
-    sector: function (x, y, r, begin, end, color, clock, isStroke, lineWidth) {
-        var ctx = this.ctx;
-        ctx.save();
-        ctx.beginPath();
-        if (lineWidth) ctx.lineWidth = lineWidth;
-        ctx[isStroke ? "strokeStyle" : "fillStyle"] = color;
-        ctx.moveTo(x, y);
-        ctx.arc(x, y, r, begin, end, clock)
-        ctx.lineTo(x, y);
-        ctx[isStroke ? "stroke" : "fill"]();
-        ctx.restore();
-    },
-    render: function () {
-        var option = this.option;
-        var ctx = this.ctx;
-        var totalCount = 0, begin = 0;
-        var i = 0, len = option.data.length;
-        for (; i < len; i++) {
-            totalCount += option.data[i].count;
-        }
-        //Sector
-        for (i = 0; i < len; i++) {
-            var item = option.data[i];
-            var end = Math.PI * 2 * (item.count / totalCount) + begin;
-            this.sector(option.x, option.y, option.r, begin, end, item.color);
-            begin = end;
-        }
-        //Sector Border
-        for (i = 0; i < len; i++) {
-            var item = option.data[i];
-            var end = Math.PI * 2 * (item.count / totalCount) + begin;
-            this.sector(option.x, option.y, option.r, begin, end, "white", true, true, 2);
-            begin = end;
-        }
-        //Text
-        for (i = 0; i < len; i++) {
-            var item = option.data[i];
-            var end = Math.PI * 2 * (item.count / totalCount) + begin;
-            var angle = begin + (end - begin) / 2;
-            var x = option.x + option.r * Math.cos(angle);
-            var y = option.y + option.r * Math.sin(angle);
-            ctx.save();
-            ctx.font = "bold 14px Arial";
-            ctx.fillText(item.name, x - ctx.measureText(item.name).width / 2, y);
-            ctx.restore();
-            begin = end;
-        }
-    }
-})
+//var PieChart = Nuclear.createCanvas({
+//    sector: function (x, y, r, begin, end, color, clock, isStroke, lineWidth) {
+//        var ctx = this.ctx;
+//        ctx.save();
+//        ctx.beginPath();
+//        if (lineWidth) ctx.lineWidth = lineWidth;
+//        ctx[isStroke ? "strokeStyle" : "fillStyle"] = color;
+//        ctx.moveTo(x, y);
+//        ctx.arc(x, y, r, begin, end, clock)
+//        ctx.lineTo(x, y);
+//        ctx[isStroke ? "stroke" : "fill"]();
+//        ctx.restore();
+//    },
+//    render: function () {
+//        var option = this.option;
+//        var ctx = this.ctx;
+//        var totalCount = 0, begin = 0;
+//        var i = 0, len = option.data.length;
+//        for (; i < len; i++) {
+//            totalCount += option.data[i].count;
+//        }
+//        //Sector
+//        for (i = 0; i < len; i++) {
+//            var item = option.data[i];
+//            var end = Math.PI * 2 * (item.count / totalCount) + begin;
+//            this.sector(option.x, option.y, option.r, begin, end, item.color);
+//            begin = end;
+//        }
+//        //Sector Border
+//        for (i = 0; i < len; i++) {
+//            var item = option.data[i];
+//            var end = Math.PI * 2 * (item.count / totalCount) + begin;
+//            this.sector(option.x, option.y, option.r, begin, end, "white", true, true, 2);
+//            begin = end;
+//        }
+//        //Text
+//        for (i = 0; i < len; i++) {
+//            var item = option.data[i];
+//            var end = Math.PI * 2 * (item.count / totalCount) + begin;
+//            var angle = begin + (end - begin) / 2;
+//            var x = option.x + option.r * Math.cos(angle);
+//            var y = option.y + option.r * Math.sin(angle);
+//            ctx.save();
+//            ctx.font = "bold 14px Arial";
+//            ctx.fillText(item.name, x - ctx.measureText(item.name).width / 2, y);
+//            ctx.restore();
+//            begin = end;
+//        }
+//    }
+//})
 
-var pc = new PieChart(300, 300, {
-    x: 140,
-    y: 140,
-    r: 120,
-    data: [
-       { name: "Javascript", count: 100, color: "#A8322E" },
-       { name: "C#", count: 97, color: "#8FB443" },
-       { name: "C++", count: 109, color: "#2D9EBC" },
-       { name: "Java", count: 12, color: "#D3731F" },
-       { name: "PHP", count: 55, color: "#FA9416" }
-    ]
-},"#pieChartContainer");
-//更改数据自动刷新Canvas
-pc.option.data[0].count = 200;
-
-
-var LineChart = Nuclear.createCanvas({
-    render: function () {
-        var canvas = this.canvas, option = this.option,
-            offset = [option.offset[0], option.offset[1]],
-            xLen = option.xValueGrid.length,
-            yLen = option.yValueGrid.length,
-            cellHeight = Math.ceil((canvas.height - offset[1]) / yLen),
-            cellWidth = Math.ceil((canvas.width - offset[0]) / xLen),
-            bottom = offset[1] + cellHeight * (yLen - 1);
-        this.renderGird(offset, xLen, yLen, cellWidth, cellHeight, bottom);
-        this.renderData(cellWidth, bottom);
-
-    },
-    renderGird: function (offset, xLen, yLen, cellWidth, cellHeight, bottom) {
-        var option = this.option, canvas = this.canvas, ctx = this.ctx;
-        ctx.strokeStyle = option.gridBoderColor,
-        ctx.fillStyle = option.gridFontColor,
-        ctx.lineWidth = 2;
-        var f = offset[0] + cellWidth * (xLen - 1);
-        ctx.fillStyle = option.fontColor;
-        ctx.fillText(option.yUnit, offset[0] - 22, offset[1] - 15);
-        ctx.beginPath();
+//var pc = new PieChart(300, 300, {
+//    x: 140,
+//    y: 140,
+//    r: 120,
+//    data: [
+//       { name: "Javascript", count: 100, color: "#A8322E" },
+//       { name: "C#", count: 97, color: "#8FB443" },
+//       { name: "C++", count: 109, color: "#2D9EBC" },
+//       { name: "Java", count: 12, color: "#D3731F" },
+//       { name: "PHP", count: 55, color: "#FA9416" }
+//    ]
+//},"#pieChartContainer");
+////更改数据自动刷新Canvas
+//pc.option.data[0].count = 200;
 
 
-        for (var c = 0; c < yLen; c++) {
-            ctx.moveTo(offset[0], offset[1]),
-            ctx.fillText(option.yValueGrid[yLen - c - 1], offset[0] - 22, offset[1] + 5),
-            ctx.lineTo(f, offset[1]),
-            offset[1] += cellHeight;
-        }
+//var LineChart = Nuclear.createCanvas({
+//    render: function () {
+//        var canvas = this.canvas, option = this.option,
+//            offset = [option.offset[0], option.offset[1]],
+//            xLen = option.xValueGrid.length,
+//            yLen = option.yValueGrid.length,
+//            cellHeight = Math.ceil((canvas.height - offset[1]) / yLen),
+//            cellWidth = Math.ceil((canvas.width - offset[0]) / xLen),
+//            bottom = offset[1] + cellHeight * (yLen - 1);
+//        this.renderGird(offset, xLen, yLen, cellWidth, cellHeight, bottom);
+//        this.renderData(cellWidth, bottom);
 
-        offset = [option.offset[0], option.offset[1]];
-        for (var c = 0; c < xLen; c++) {
-            ctx.moveTo(offset[0], offset[1]),
-            ctx.fillText(option.xValueGrid[c] + option.xUnit, offset[0] - 10, bottom + 15),
-            ctx.lineTo(offset[0], bottom),
-            offset[0] += cellWidth;
-        }
-        ctx.stroke();
-    },
-    renderData: function (cellWidth, bottom) {
-        var option = this.option, ctx = this.ctx;
-        var h = option.yValueGrid[option.yValueGrid.length - 1] - option.yValueGrid[0];
-        offset = [option.offset[0], option.offset[1]];
-        for (var c = 0, p = option.lines.length; c < p; c++) {
-            var d = option.lines[c];
-            ctx.strokeStyle = d.lineColor,
-            ctx.beginPath();
-            for (var v = 0, m = d.data.length - 1; v < m; v++) ctx.moveTo(offset[0] + cellWidth * v, bottom - (bottom - offset[0]) * d.data[v] / h),
-            ctx.lineTo(offset[0] + cellWidth * (v + 1), bottom - (bottom - offset[0]) * d.data[v + 1] / h);
-            ctx.stroke()
-        }
+//    },
+//    renderGird: function (offset, xLen, yLen, cellWidth, cellHeight, bottom) {
+//        var option = this.option, canvas = this.canvas, ctx = this.ctx;
+//        ctx.strokeStyle = option.gridBoderColor,
+//        ctx.fillStyle = option.gridFontColor,
+//        ctx.lineWidth = 2;
+//        var f = offset[0] + cellWidth * (xLen - 1);
+//        ctx.fillStyle = option.fontColor;
+//        ctx.fillText(option.yUnit, offset[0] - 22, offset[1] - 15);
+//        ctx.beginPath();
 
-        offset = [option.offset[0], option.offset[1]];
-        for (var c = 0, p = option.lines.length; c < p; c++) {
-            var d = option.lines[c];
-            ctx.strokeStyle = d.lineColor;
-            for (var v = 0, m = d.data.length; v < m; v++) {
-                var g = offset[0] + cellWidth * v,
-                y = bottom - (bottom - offset[0]) * d.data[v] / h;
-                ctx.beginPath(),
-                ctx.lineWidth = 3,
-                ctx.arc(g, y, 4, 0, Math.PI * 2, !1),
-                ctx.stroke(),
-                ctx.beginPath(),
-                ctx.fillStyle = option.fontColor;
-                ctx.arc(g, y, 4, 0, Math.PI * 2, !1),
-                ctx.fill(),
-                v === m - 1 && (ctx.fillText(d.data[v], g + 10, y + 10))
-            }
-        }
-    }
 
-})
+//        for (var c = 0; c < yLen; c++) {
+//            ctx.moveTo(offset[0], offset[1]),
+//            ctx.fillText(option.yValueGrid[yLen - c - 1], offset[0] - 22, offset[1] + 5),
+//            ctx.lineTo(f, offset[1]),
+//            offset[1] += cellHeight;
+//        }
 
-var lineChart = new LineChart(600, 300, {
-    offset: [40, 40],
-    fontColor: "white",
-    gridBoderColor: "#ccc",
-    gridFontColor: "black",
-    yValueGrid: [0, 50, 100, 150, 200, 250, 300],
-    yUnit: "万元/㎡",
-    xValueGrid: [10, 11, 12, 1, 2, 3],
-    xUnit: "月",
-    lines: [{
-        lineColor: "#A8322E",
-        data: [23, 40, 33, 76, 20, 19]
-    },
-    {
-        lineColor: "#8FB443",
-        data: [123, 10, 23, 176, 200, 34]
-    },
-    {
-        lineColor: "#2D9EBC",
-        data: [13, 2, 7, 76, 100, 134]
-    },
-    {
-        lineColor: "#FA9416",
-        data: [11, 60, 33, 116, 1, 119]
-    }]
-}, "#lcContainer")
+//        offset = [option.offset[0], option.offset[1]];
+//        for (var c = 0; c < xLen; c++) {
+//            ctx.moveTo(offset[0], offset[1]),
+//            ctx.fillText(option.xValueGrid[c] + option.xUnit, offset[0] - 10, bottom + 15),
+//            ctx.lineTo(offset[0], bottom),
+//            offset[0] += cellWidth;
+//        }
+//        ctx.stroke();
+//    },
+//    renderData: function (cellWidth, bottom) {
+//        var option = this.option, ctx = this.ctx;
+//        var h = option.yValueGrid[option.yValueGrid.length - 1] - option.yValueGrid[0];
+//        offset = [option.offset[0], option.offset[1]];
+//        for (var c = 0, p = option.lines.length; c < p; c++) {
+//            var d = option.lines[c];
+//            ctx.strokeStyle = d.lineColor,
+//            ctx.beginPath();
+//            for (var v = 0, m = d.data.length - 1; v < m; v++) ctx.moveTo(offset[0] + cellWidth * v, bottom - (bottom - offset[0]) * d.data[v] / h),
+//            ctx.lineTo(offset[0] + cellWidth * (v + 1), bottom - (bottom - offset[0]) * d.data[v + 1] / h);
+//            ctx.stroke()
+//        }
 
-setInterval(function () {
-    //数据改变自动通知视图
-    lineChart.option.lines[0].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
-    lineChart.option.lines[1].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
-    lineChart.option.lines[2].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
-    lineChart.option.lines[3].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
-}, 1000)
+//        offset = [option.offset[0], option.offset[1]];
+//        for (var c = 0, p = option.lines.length; c < p; c++) {
+//            var d = option.lines[c];
+//            ctx.strokeStyle = d.lineColor;
+//            for (var v = 0, m = d.data.length; v < m; v++) {
+//                var g = offset[0] + cellWidth * v,
+//                y = bottom - (bottom - offset[0]) * d.data[v] / h;
+//                ctx.beginPath(),
+//                ctx.lineWidth = 3,
+//                ctx.arc(g, y, 4, 0, Math.PI * 2, !1),
+//                ctx.stroke(),
+//                ctx.beginPath(),
+//                ctx.fillStyle = option.fontColor;
+//                ctx.arc(g, y, 4, 0, Math.PI * 2, !1),
+//                ctx.fill(),
+//                v === m - 1 && (ctx.fillText(d.data[v], g + 10, y + 10))
+//            }
+//        }
+//    }
 
-function random(min, max) {
-    return min + Math.floor(Math.random() * (max - min + 1));
-}
+//})
 
-function random1To200() {
-    return random(1, 200);
-}
+//var lineChart = new LineChart(600, 300, {
+//    offset: [40, 40],
+//    fontColor: "white",
+//    gridBoderColor: "#ccc",
+//    gridFontColor: "black",
+//    yValueGrid: [0, 50, 100, 150, 200, 250, 300],
+//    yUnit: "万元/㎡",
+//    xValueGrid: [10, 11, 12, 1, 2, 3],
+//    xUnit: "月",
+//    lines: [{
+//        lineColor: "#A8322E",
+//        data: [23, 40, 33, 76, 20, 19]
+//    },
+//    {
+//        lineColor: "#8FB443",
+//        data: [123, 10, 23, 176, 200, 34]
+//    },
+//    {
+//        lineColor: "#2D9EBC",
+//        data: [13, 2, 7, 76, 100, 134]
+//    },
+//    {
+//        lineColor: "#FA9416",
+//        data: [11, 60, 33, 116, 1, 119]
+//    }]
+//}, "#lcContainer")
+
+//setInterval(function () {
+//    //数据改变自动通知视图
+//    lineChart.option.lines[0].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+//    lineChart.option.lines[1].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+//    lineChart.option.lines[2].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+//    lineChart.option.lines[3].data = [random1To200(), random1To200(), random1To200(), random1To200(), random1To200(), random1To200()];
+//}, 1000)
+
+//function random(min, max) {
+//    return min + Math.floor(Math.random() * (max - min + 1));
+//}
+
+//function random1To200() {
+//    return random(1, 200);
+//}
 
 var Marquee = Nuclear.create({
     installed: function () {
@@ -680,57 +680,57 @@ new Pagination({
     callback: function (currentIndex) { }
 }, "#paginationContainer");
 
-new Layout({
-    topHeight: 40,
-    leftWidth: 60,
-    rightWidth: 50,
-    bottomHeight: 30,
-    container: "#layoutContainer"
-});
+//new Layout({
+//    topHeight: 40,
+//    leftWidth: 60,
+//    rightWidth: 50,
+//    bottomHeight: 30,
+//    container: "#layoutContainer"
+//});
 
-(function () {
-var CircularProgress = Nuclear.createCanvas({
-    sector: function (x, y, r, begin, end, color, clock) {
-        var ctx = this.ctx;
-        ctx.beginPath();
-        ctx.fillStyle = color;
-        ctx.moveTo(x, y);
-        ctx.arc(x, y, r, begin, end, clock)
-        ctx.lineTo(x, y);
-        ctx.fill();
-    },
-    circle: function (x, y, r, color) {
-        this.sector(x, y, r, 0, 2 * Math.PI, color);
-    },
-    getColor: function (percent) {
-        if (percent < 20) return "#6B0300";
-        if (percent < 40) return "#814700";
-        if (percent < 60) return "#847A00";
+//(function () {
+//var CircularProgress = Nuclear.createCanvas({
+//    sector: function (x, y, r, begin, end, color, clock) {
+//        var ctx = this.ctx;
+//        ctx.beginPath();
+//        ctx.fillStyle = color;
+//        ctx.moveTo(x, y);
+//        ctx.arc(x, y, r, begin, end, clock)
+//        ctx.lineTo(x, y);
+//        ctx.fill();
+//    },
+//    circle: function (x, y, r, color) {
+//        this.sector(x, y, r, 0, 2 * Math.PI, color);
+//    },
+//    getColor: function (percent) {
+//        if (percent < 20) return "#6B0300";
+//        if (percent < 40) return "#814700";
+//        if (percent < 60) return "#847A00";
 
-        if (percent < 80) return "#556C02";
-        if (percent <= 100) return "#367D00";
-    },
-    text: function (x, y, text, color) {
-        this.ctx.fillStyle = color;
-        this.ctx.font = "bold 20px Verdana";
-        this.ctx.fillText(text, x - this.ctx.measureText(text).width / 2, y + 8);
-    },
-    render: function () {
-        var x = this.canvas.width / 2, y = this.canvas.height / 2, r = x - 20, innerR = r - this.option.ringWidth;
-        this.circle(x, y, r, "#DCDCDC")
-        this.sector(x, y, r, -Math.PI / 2, 2 * Math.PI * this.option.percent / 100 - Math.PI / 2, this.getColor(this.option.percent));
-        this.circle(x, y, innerR, "white");
-        this.text(x, y, this.option.percent + "%", "black");
-    }
-})
+//        if (percent < 80) return "#556C02";
+//        if (percent <= 100) return "#367D00";
+//    },
+//    text: function (x, y, text, color) {
+//        this.ctx.fillStyle = color;
+//        this.ctx.font = "bold 20px Verdana";
+//        this.ctx.fillText(text, x - this.ctx.measureText(text).width / 2, y + 8);
+//    },
+//    render: function () {
+//        var x = this.canvas.width / 2, y = this.canvas.height / 2, r = x - 20, innerR = r - this.option.ringWidth;
+//        this.circle(x, y, r, "#DCDCDC")
+//        this.sector(x, y, r, -Math.PI / 2, 2 * Math.PI * this.option.percent / 100 - Math.PI / 2, this.getColor(this.option.percent));
+//        this.circle(x, y, innerR, "white");
+//        this.text(x, y, this.option.percent + "%", "black");
+//    }
+//})
 
-var cp = new CircularProgress(150, 150, { percent: 0, ringWidth: 15 }, "#circularProgressContainer");
-//为了演示
-setInterval(function () {
-    if (cp.option.percent >= 100) cp.option.percent = 0;
-    cp.option.percent++;
-}, 100)
-})()
+//var cp = new CircularProgress(150, 150, { percent: 0, ringWidth: 15 }, "#circularProgressContainer");
+////为了演示
+//setInterval(function () {
+//    if (cp.option.percent >= 100) cp.option.percent = 0;
+//    cp.option.percent++;
+//}, 100)
+//})()
 
 
 
@@ -745,9 +745,8 @@ var Nav = Nuclear.create({
     render: function () {
         return '<ul class="nc-nav">\
                       <li><a href="#e1" onclick="scrollTo(event,this)">声明式事件绑定</a></li>\
+                      <li><a href="#e3" onclick="scrollTo(event,this)">模板引擎可替换</a></li>\
                       <li><a href="#e2" onclick="scrollTo(event,this)">无限嵌套</a></li>\
-                      <li><a href="#e3" onclick="scrollTo(event,this)">圆形进度</a></li>\
-                      <li><a href="#e4" onclick="scrollTo(event,this)">布局组件</a></li>\
                       <li><a href="#e5" onclick="scrollTo(event,this)">分页组件</a></li>\
                       <li><a href="#e6" onclick="scrollTo(event,this)">轮播组件</a></li>\
                       <li><a href="#e7" onclick="scrollTo(event,this)">Alert组件</a></li>\
@@ -757,11 +756,8 @@ var Nav = Nuclear.create({
                       <li><a href="#e11" onclick="scrollTo(event,this)">有配置的组件</a></li>\
                       <li><a href="#e12" onclick="scrollTo(event,this)">Todo应用</a></li>\
                       <li><a href="#e13" onclick="scrollTo(event,this)">Markdown编辑器</a></li>\
-                      <li><a href="#e14" onclick="scrollTo(event,this)">图形组件</a></li>\
-                      <li><a href="#e15" onclick="scrollTo(event,this)">线状图</a></li>\
                       <li><a href="#e16" onclick="scrollTo(event,this)">动态模板渲染</a></li>\
                       <li><a href="#e17" onclick="scrollTo(event,this)">组件继承</a></li>\
-                      <li><a href="#e18" onclick="scrollTo(event,this)">非结构型组件</a></li>\
                  </ul>';
     }
 
