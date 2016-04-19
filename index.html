@@ -818,8 +818,8 @@ progress.option.value = <span class="hljs-number">0.3</span>;
 
 <span class="hljs-keyword">var</span> CountdownButton = Button.create({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-comment">//可通过访问父类方法</span>
-        <span class="hljs-comment">// this._super.render();              </span>
+        <span class="hljs-comment">//可通过访问父类</span>
+        <span class="hljs-comment">// this._super          </span>
     },
     installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.node.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
@@ -884,7 +884,7 @@ progress.option.value = <span class="hljs-number">0.3</span>;
                     </div>
 
                     <p>
-                        Nuclear通过<code> Button.create</code>方法实现组件的继承，继承自Button组件。可以看到子类没有定义render方法，因为它们可以共用一套模板。当然，你也可以重新定义render，也可以通过<code> this._super.render()</code>访问父类的方法。
+                        Nuclear通过<code> Button.create</code>方法实现组件的继承，继承自Button组件。可以看到子类没有定义render方法，因为它们可以共用一套模板。当然，你也可以重新定义render，也可以通过<code> this._super</code>访问父类。
                     </p>
 
                 </div>

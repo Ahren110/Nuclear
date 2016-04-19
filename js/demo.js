@@ -185,8 +185,8 @@ var SwitchButton = Button.create({
 
 var CountdownButton = Button.create({
     install: function () {
-        //可通过访问父类方法
-        // this._super();              
+        //可通过访问父类
+        // this._super;
     },
     installed: function () {
         this.node.addEventListener("click", function (evt) {
