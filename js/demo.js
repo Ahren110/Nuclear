@@ -465,7 +465,7 @@ var Tab = Nuclear.create({
         this.tabs = this.node.querySelectorAll('.nuclear-tab-nav a');
         var self = this;
        util.addEvent(this.tabs, "click", function () {
-            self.option.selectedIndex = Nuclear.getNodeIndex(this);
+           self.option.selectedIndex = util.getNodeIndex(this);
         });
     },
     render: function () {

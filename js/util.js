@@ -15,6 +15,16 @@ util.addEvent = (function () {
     };
 })();
 
+util.getNodeIndex = function (node) {
+    var index = 0;
+    while ((node = node.previousSibling)) {
+        if (node.nodeType != 3 || !/^\s*$/.test(node.data)) {
+            index++;
+        }
+    }
+    return index;
+};
+
 util.hasClass = function (ele, cls) {
     return !!ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
 };
