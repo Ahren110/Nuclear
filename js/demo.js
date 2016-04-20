@@ -547,6 +547,9 @@ var Carousel = Nuclear.create({
             return false;
         }
     },
+    style: function () {
+        return ".nuclear-carousel-box { transition: left 1s cubic-bezier(0.22, 0.61, 0.36, 1); }";
+    },
     render: function () {
         var imgCount = this.option.imgs.length;
         return '<div class="nuclear-carousel">\
