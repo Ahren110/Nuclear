@@ -26,9 +26,7 @@
 
                 <ul class="nav-site nav-site-external">
                     <li><a href="https://github.com/AlloyTeam/Nuclear">GitHub</a></li>
-                   <!-- <li><a href="https://github.com/AlloyTeam/Nuclear/zipball/master">下载</a>-->
-
-                    </li>
+                   <!-- <li><a href="https://github.com/AlloyTeam/Nuclear/zipball/master">下载</a></li>-->
                     <li><a href="http://www.alloyteam.com/">团队博客</a></li>
                     <!--          <li><a href="en.html">English</a></li>-->
                 </ul>
@@ -105,9 +103,34 @@
                         <div>
                             <img src="img/guide.png" alt="" />
                         </div>
-                        <p>1：一个组件会依赖option，上面的option是<code>{items:[]}</code>；模板里可以直接访问到option的属性，代码里可以通过this.option访问。option的变更会自动更新dom<br />2：add方法不用担心会调用全局的，Nuclear会帮你处理好，add就是调用自身的add。<br />3：可以通过标记nc-id的方式快速访问dom元素<br />4：不用担心h3会污染全局，h3就是你想要的h3<br />5：不用担心button会污染全局，button就是你想要的button<br />
-                            不适应反斜杠的话直接上ES6  template literals -->: <a href="http://babeljs.io/repl/#?evaluate=true&presets=es2015%2Creact%2Cstage-2&experimental=false&loose=false&spec=false&code=var%20TodoApp%20%3D%20Nuclear.create(%7B%0D%0A%20%20%20%20add%3A%20function%20(evt)%20%7B%0D%0A%20%20%20%20%20%20%20%20evt.preventDefault()%3B%0D%0A%20%20%20%20%20%20%20%20this.option.items.push(this.textBox.value)%3B%0D%0A%20%20%20%20%7D%2C%0D%0A%20%20%20%20render%3A%20function%20()%20%7B%0D%0A%20%20%20%20%20%20%20%20return%20%60%3Cdiv%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3ETODO%3C%2Fh3%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cul%3E%20%7B%7B%23items%7D%7D%20%3Cli%3E%7B%7B.%7D%7D%3C%2Fli%3E%20%7B%7B%2Fitems%7D%7D%3C%2Ful%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cform%20onsubmit%3D%22add(event)%22%20%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20nc-id%3D%22textBox%22%20type%3D%22text%22%20%20%2F%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%3EAdd%20%23%7B%7Bitems.length%7D%7D%3C%2Fbutton%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fform%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%60%3B%0D%0A%20%20%20%20%7D%2C%0D%0A%20%20%20%20style%3A%20function%20()%20%7B%0D%0A%20%20%20%20%20%20%20%20return%20%60h3%20%7B%20color%3Ared%3B%20%7D%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%7B%20color%3Agreen%3B%7D%60%3B%0D%0A%20%20%20%20%7D%0D%0A%7D)%3B" target="_blank">点我点我</a>
+                        <p>1：一个组件会依赖option，上面的option是<code>{items:[]}</code>；模板里可以直接访问到option的属性，代码里可以通过this.option访问。option的变更会自动更新dom<br />2：add方法不用担心会调用全局的，Nuclear会帮你处理好，add就是调用自身的add。<br />3：可以通过标记nc-id的方式快速访问dom元素<br />4：不用担心h3会污染全局，h3就是你想要的h3<br />5：不用担心button会污染全局，button就是你想要的button
+                           
                         </p>
+                    </div>
+                    <div>
+                        <h3>反斜杠解药:ES6</h3>
+                        <pre class="javascript hljs"><code class="js" ><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        evt.preventDefault();
+        <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> `&lt;div&gt;
+                  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span> {{#items}} <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{.}}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span> {{/items}}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onsubmit</span>=<span class="hljs-value">"add(event)"</span> &gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">nc-id</span>=<span class="hljs-value">"textBox"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>  /&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>Add #{{items.length}}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+                 <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+               <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>`;
+    },
+    style: function () {
+        return `h3 { color:red; }
+                button{ color:green;}`;
+    }
+});
+</span></code></pre>
+                        <p> 【墙裂声明】不适应反斜杠的话直接上ES6  template literals -->: <a href="http://babeljs.io/repl/#?evaluate=true&presets=es2015%2Creact%2Cstage-2&experimental=false&loose=false&spec=false&code=var%20TodoApp%20%3D%20Nuclear.create(%7B%0D%0A%20%20%20%20add%3A%20function%20(evt)%20%7B%0D%0A%20%20%20%20%20%20%20%20evt.preventDefault()%3B%0D%0A%20%20%20%20%20%20%20%20this.option.items.push(this.textBox.value)%3B%0D%0A%20%20%20%20%7D%2C%0D%0A%20%20%20%20render%3A%20function%20()%20%7B%0D%0A%20%20%20%20%20%20%20%20return%20%60%3Cdiv%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3ETODO%3C%2Fh3%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cul%3E%20%7B%7B%23items%7D%7D%20%3Cli%3E%7B%7B.%7D%7D%3C%2Fli%3E%20%7B%7B%2Fitems%7D%7D%3C%2Ful%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cform%20onsubmit%3D%22add(event)%22%20%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20nc-id%3D%22textBox%22%20type%3D%22text%22%20%20%2F%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%3EAdd%20%23%7B%7Bitems.length%7D%7D%3C%2Fbutton%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fform%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%60%3B%0D%0A%20%20%20%20%7D%2C%0D%0A%20%20%20%20style%3A%20function%20()%20%7B%0D%0A%20%20%20%20%20%20%20%20return%20%60h3%20%7B%20color%3Ared%3B%20%7D%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%7B%20color%3Agreen%3B%7D%60%3B%0D%0A%20%20%20%20%7D%0D%0A%7D)%3B" target="_blank">点我点我</a></p>
                     </div>
                     <div class="example">
                         <h3 id="e1">声明式事件绑定</h3>
