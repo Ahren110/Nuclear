@@ -531,11 +531,10 @@ new Button({
 var Carousel = Nuclear.create({
     installed: function () {
         this.links = this.nav.querySelectorAll('a');
-        var self = this;
-       util.addEvent(this.links, "click", function () {
-            self.option.index = this.getAttribute("data-index");
-        });
         this.active();
+    },
+    to: function (index) {
+        this.option.index = index;
     },
     active: function () {
         util.removeClass(this.links, "active");
@@ -555,10 +554,11 @@ var Carousel = Nuclear.create({
                         {{#imgs}}<img style=" width:'+ 100 / imgCount + '%;" src="{{.}}" /> {{/imgs}}\
                     </div>\
                     <div nc-id="nav"  class="nuclear-nav"> \
-                        {{#imgs}}<a data-index="{{@index}}"></a> {{/imgs}}</div>\
+                        {{#imgs}}<a onclick="to({{@index}})"></a> {{/imgs}}</div>\
                 </div>';
     }
 });
+
 new Carousel({
     imgs: ["img/room.jpg", "img/sleep.jpg", "img/watch.jpg"],
     index: 0
@@ -747,8 +747,8 @@ var Nav = Nuclear.create({
                       <li><a href="#e1" onclick="scrollTo(event,this)">声明式事件绑定</a></li>\
                       <li><a href="#e3" onclick="scrollTo(event,this)">模板引擎可替换</a></li>\
                       <li><a href="#e2" onclick="scrollTo(event,this)">无限嵌套</a></li>\
-                      <li><a href="#e5" onclick="scrollTo(event,this)">分页组件</a></li>\
                       <li><a href="#e6" onclick="scrollTo(event,this)">轮播组件</a></li>\
+                      <li><a href="#e5" onclick="scrollTo(event,this)">分页组件</a></li>\
                       <li><a href="#e7" onclick="scrollTo(event,this)">Alert组件</a></li>\
                       <li><a href="#e8" onclick="scrollTo(event,this)">选项卡</a></li>\
                       <li><a href="#e9" onclick="scrollTo(event,this)">跑马灯</a></li>\

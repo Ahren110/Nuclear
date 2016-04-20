@@ -379,6 +379,44 @@
                     </tbody>
 
                 </table>
+                <h4>实例</h4>
+                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Carousel = Nuclear.create({
+    installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">this</span>.nav.querySelectorAll(<span class="hljs-string">'a'</span>);
+        <span class="hljs-keyword">this</span>.active();
+    },
+    to: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(index)</span> </span>{
+        <span class="hljs-keyword">this</span>.option.index = index;
+    },
+    active: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        util.removeClass(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"active"</span>);
+        util.addClass(<span class="hljs-keyword">this</span>.links[<span class="hljs-keyword">this</span>.option.index], <span class="hljs-string">"active"</span>);
+    },
+    onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
+        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"index"</span>) {
+            <span class="hljs-keyword">this</span>.carouselScroll.style.left = value * -<span class="hljs-number">100</span> + <span class="hljs-string">"%"</span>;
+            <span class="hljs-keyword">this</span>.active();
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> imgCount = <span class="hljs-keyword">this</span>.option.imgs.length;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div class="nuclear-carousel"&gt;\
+                    &lt;div style="width: '</span> + imgCount * <span class="hljs-number">100</span> + <span class="hljs-string">'%; left: '</span> + <span class="hljs-keyword">this</span>.option.index * -<span class="hljs-number">100</span> + <span class="hljs-string">'%;" nc-id="carouselScroll" class="nuclear-carousel-box"&gt;\
+                        {{#imgs}}&lt;img style=" width:'</span>+ <span class="hljs-number">100</span> / imgCount + <span class="hljs-string">'%;" src="{{.}}" /&gt; {{/imgs}}\
+                    &lt;/div&gt;\
+                    &lt;div nc-id="nav"  class="nuclear-nav"&gt; \
+                        {{#imgs}}&lt;a onclick="to({{@index}})"&gt;&lt;/a&gt; {{/imgs}}&lt;/div&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">new</span> Carousel({
+    imgs: [<span class="hljs-string">"img/room.jpg"</span>, <span class="hljs-string">"img/sleep.jpg"</span>, <span class="hljs-string">"img/watch.jpg"</span>],
+    index: <span class="hljs-number">0</span>
+}, <span class="hljs-string">"#carouselContainer"</span>);
+</code></pre>
+                <p>可以看到onOptionChange当检测到变更属性为index的时候返回false阻止dom自动刷新，自己手动更改left，利用CSS定义好的transition进行运动。</p>
             </div>
              <div class="footer"></div>
         </div>
