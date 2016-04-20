@@ -96,22 +96,10 @@
             <a href="http://www.alloyteam.com/">团队博客</a>
         </div>
     </div>
-    <div class="pure-menu pure-menu-open" style="width: 250px; position: fixed; top: 60px; left: 20px;">
-        <a class="pure-menu-heading" style="font-size: 18px;">Nuclear API(0.0.6)</a>
+    <div id="navCtn">
 
-        <ul>
-            <li class="pure-menu-heading">Core</li>
-            <li><a href="#" class="active">Nuclear.create</a></li>
-            <li><a href="#">Nuclear.Tpl.render</a></li>
-            <li class="pure-menu-heading">Component</li>
-            <li><a href="#">install</a></li>
-            <li><a href="#">style</a></li>
-            <li><a href="#">render</a></li>
-            <li><a href="#">installed</a></li>
-            <li><a href="#">onRefresh</a></li>
-            <li><a href="#">onOptionChange</a></li>
-        </ul>
     </div>
+
     <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 101; width: 140px; height: 140px;">
         <img src="http://alloyteam.github.io/AlloyGameEngine/AlloyPaper/example/asset/img/github.png" alt="">
     </a>
@@ -425,7 +413,38 @@
         </div>
          
     </div>
-  
+
+    <script src="js/nuclear.min.js"></script> 
     <script src="js/zepto.min.js"></script>
+    <script>
+        var Nav = Nuclear.create({
+            scrollTo: function (evt, element) {
+                evt.preventDefault();
+                $("html")[0].scrollTop = $($(element).attr("href")).offset().top - 60;
+                $("body")[0].scrollTop = $($(element).attr("href")).offset().top - 60;
+                //$("html").scrollToTop($($(element).attr("href")).offset().top-60);
+            },
+            render: function () {
+                return '    <div class="pure-menu pure-menu-open" style="width: 250px; position: fixed; top: 60px; left: 20px;">\
+                                <a class="pure-menu-heading" style="font-size: 18px;">Nuclear API(0.0.6)</a>\
+                                <ul>\
+                                    <li class="pure-menu-heading">Core</li>\
+                                    <li><a href="#el1"  onclick="scrollTo(event,this)">Nuclear.create</a></li>\
+                                    <li><a href="#el2"  onclick="scrollTo(event,this)">Nuclear.Tpl.render</a></li>\
+                                    <li class="pure-menu-heading">Component</li>\
+                                    <li><a href="#el3"  onclick="scrollTo(event,this)">install</a></li>\
+                                    <li><a href="#el4"  onclick="scrollTo(event,this)">style</a></li>\
+                                    <li><a href="#el5"  onclick="scrollTo(event,this)">render</a></li>\
+                                    <li><a href="#el6"  onclick="scrollTo(event,this)">installed</a></li>\
+                                    <li><a href="#el7"  onclick="scrollTo(event,this)">onRefresh</a></li>\
+                                    <li><a href="#el8"  onclick="scrollTo(event,this)">onOptionChange</a></li>\
+                                </ul>\
+                            </div>';
+            }
+
+        })
+
+        new Nav({}, "#navCtn");
+    </script>
 </body>
 </html>
