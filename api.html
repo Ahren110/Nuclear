@@ -78,6 +78,10 @@
             padding: .5em;
             background-color:#FDF6E3;
         }
+
+         .footer{
+             height:100px;
+         }
     </style>
 </head>
 <body>
@@ -230,9 +234,157 @@
 </code></pre>
                  <p>install方法会在nuclear内部优先执行，执行完才会进行属性监听。所以很明显，上面的name属性也进行了双向绑定。<code>hm.option.name</code>的修改会自动修改Dom。</p>
             </div>
-        </div>
-    </div>
 
+             <div class="item">
+                <h2 id="el4">style</h2>
+                <div class="describe">组件样式</div>  
+                    <h4>返回值</h4>
+                <table class="pure-table">
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>字符串</td>
+                            <td>必须符合css格式和语法，用于渲染组件的样式</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table> 
+                <h4>实例</h4>
+                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> HelloMessage = Nuclear.create({
+    style: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'.test a{ \
+                    color: red;\
+                    font-size: 100px;\
+                }\
+                span{\
+                        background-color: green;\
+                }'</span>;
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;span class="test" &gt;\
+                        &lt;a href="#"&gt;Test Style&lt;/a&gt;\
+                    &lt;/span&gt;\
+                &lt;/div&gt;'</span>;
+    }
+})
+
+<span class="hljs-keyword">var</span> hm = <span class="hljs-keyword">new</span> HelloMessage( {  },<span class="hljs-string">"#helloContainer"</span>);
+</code></pre>
+                 <p>style方法会在nuclear内部执行，返回值必须是CSS格式的字符串。在style方法里面可以任性随意得写CSS选择器而不用担心污染其他组件。</p>
+            </div>
+
+             <div class="item">
+                <h2 id="el5">render</h2>
+                <div class="describe">组件模板结构</div>  
+                    <h4>返回值</h4>
+                <table class="pure-table">
+                    <thead>
+                        <tr>
+                            <th>类型</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>字符串</td>
+                            <td>必须符合模板引擎语法，用于渲染组件的结构</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table> 
+               
+                 <p>如果没有重写Nuclear.Tpl.render方法，则按照mustachejs的语法写就可以。</p>
+            </div>
+
+            <div class="item">
+                <h2 id="el6">installed</h2>
+                <div class="describe">组件组装完成执行</div>   
+            </div>
+
+            <div class="item">
+                <h2 id="el7">onRefresh</h2>
+                <div class="describe">组件刷新执行的回调</div>   
+            </div>
+
+            <div class="item">
+                <h2 id="el8">onOptionChange</h2>
+                <div class="describe">组件option变更执行的回调</div>   
+                 <h4>参数</h4>
+                <table class="pure-table ">
+                    <thead>
+                        <tr>
+
+                            <th>参数</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>prop</td>
+                            <td>字符串</td>
+                            <td>组件option被更改的属性名</td>
+                          
+                        </tr>
+                        <tr>
+                            <td>value</td>
+                            <td>object</td>
+                            <td>组件option更新的值</td>
+                        </tr>
+                        <tr>
+                            <td>oldValue</td>
+                            <td>任意对象</td>
+                            <td>组件option更新前的值</td>
+                        </tr>
+                        <tr>
+                            <td>path</td>
+                            <td>字符串</td>
+                            <td>组件option更改的path路径，用来描述option树中的拿个属性被更改</td>
+                      
+                        </tr>
+                    </tbody>
+
+                </table>
+                <h4>返回值</h4>
+                <table class="pure-table">
+                    <thead>
+                        <tr>
+                           
+                            <th>类型</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                           
+                            <td>Boolean</td>
+                            <td>返回true代表会重新刷新dom节点，返回false或者undefined代表不触发dom的刷新（这样的话，刷新dom的逻辑可以自己写在onOptionChange里）</td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+             <div class="footer"></div>
+        </div>
+         
+    </div>
+  
     <script src="js/zepto.min.js"></script>
 </body>
 </html>
