@@ -93,12 +93,12 @@ li {
 }
 
 a {
-    color: #4096EE;
+    color: #cb4b16;
     text-decoration: none;
 }
 
     a:hover, a:focus {
-        color: #4096EE;
+        color: #e69b6b;
         text-decoration: underline;
     }
 
@@ -445,11 +445,11 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
         line-height: 50px;
         display: inline-block;
         height: 50px;
-        color: #ddd;
+        color: #e69b6b;
     }
 
         .nav-main .nav-site a:hover {
-            color: #fff;
+            color: #eebe9f;
         }
 
         .nav-main .nav-site a.active {
@@ -459,7 +459,7 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
         }
 
     .nav-main .nav-home {
-        color: #00d8ff;
+        color: #e69b6b;
         font-size: 24px;
         line-height: 50px;
         height: 50px;
@@ -515,12 +515,12 @@ h1:hover .hash-link, h2:hover .hash-link, h3:hover .hash-link, h4:hover .hash-li
 
     .buttons-unit .button {
         font-size: 24px;
-        background: #4096EE;
+        background: #e69b6b;
         color: #fafafa;
     }
 
         .buttons-unit .button:active {
-            background: #4096EE;
+            background: #e69b6b;
         }
 
     .buttons-unit.downloads {
