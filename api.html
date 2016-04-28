@@ -409,6 +409,136 @@
 </code></pre>
                 <p>个人比较喜欢这个例子，这个例子用了大部分Nuclear特性。可以看到onOptionChange当检测到变更属性为index的时候返回false阻止dom自动刷新，自己手动更改left，利用style方法内定义好的transition进行运动。</p>
             </div>
+
+             <div class="item">
+                <h2 id="el9">option</h2>
+                <div class="describe">组件的配置</div>   
+                 <h4>类型</h4>
+                <div class="describe">JSON/对象字面量</div>            
+                <h4>实例</h4>
+                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Selector = Nuclear.create({
+    anyMethod: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.option); <span class="hljs-comment">//Object {item: Array[4], selectedIndex: 2}</span>
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//省略</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>;
+    },
+    style: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//省略</span>
+    }
+});
+
+<span class="hljs-keyword">var</span> selector = <span class="hljs-keyword">new</span> Selector({
+    item: [
+        { value: <span class="hljs-string">"all"</span>, text: <span class="hljs-string">"累计"</span> },
+        { value: <span class="hljs-string">"2015-9"</span>, text: <span class="hljs-string">"2015年9月"</span> },
+        { value: <span class="hljs-string">"2015-8"</span>, text: <span class="hljs-string">"2015年8月"</span> },
+        { value: <span class="hljs-string">"2015-7"</span>, text: <span class="hljs-string">"2015年7月"</span> }
+    ],
+    selectedIndex: <span class="hljs-number">2</span>,
+    change: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(item, index)</span> </span>{
+    }
+}, <span class="hljs-string">"#selectorContainer"</span>);
+</code></pre>
+                <p>在任意方法内都可以通过this.option访问用户传入的组件配置。这里需要注意：install方法内可以改变this.option，install执行之后才会进行option的双向绑定。</p>
+            </div>
+
+            <div class="item">
+                <h2 id="el10">node</h2>
+                <div class="describe">组件的根节点</div>        
+                <h4>实例</h4>
+                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> AnyThing = Nuclear.create({
+    anyMethod: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">/*输出
+        &lt;div data-nuclearid="0"&gt;
+            &lt;h3&gt;我不是this.node&lt;/h3&gt;
+            &lt;p&gt;我也不是this.node&lt;/p&gt;
+        &lt;/div&gt;
+        */</span>
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.node); 
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//省略</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;h3&gt;我不是this.node&lt;/h3&gt;\
+                &lt;p&gt;我也不是this.node&lt;/p&gt;'</span>;
+    }
+});
+</code></pre>
+                <p>不管render里的模板是不是放在一个封闭的div里。nuclear都会帮你会在最外层加上div包起来并可以通过this.node访问该根节点。</p>
+            </div>
+
+            <div class="item">
+                <h2 id="el11">nc-id</h2>
+                <div class="describe">通过this可以访问到该节点</div>        
+                 <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
+    },
+    keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;Input&lt;/h3&gt;\
+                    &lt;textarea nc-id="textarea" onkeyup="keyup()" rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;\
+                    &lt;h3&gt;Output&lt;/h3&gt;\
+                    &lt;div class="content" nc-refresh &gt;\
+                        {{{html}}}\
+                    &lt;/div&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+</code></pre>
+            
+                <p>如上面所示，通过this.textarea可以访问到标记nc-id为textarea的节点。</p>
+            </div>
+
+            <div class="item">
+                <h2 id="el12">nc-class</h2>
+                <div class="describe">通过this可以访问到存储所有标记该类class节点的数组</div>        
+                <h4>类型</h4>
+                <div class="describe">Array</div>  
+                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> AnyThing = Nuclear.create({
+    anyMethod: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.abc); <span class="hljs-comment">//输出 [h3 , p]</span>
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//省略</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;h3 nc-class="abc"&gt;我不是this.node&lt;/h3&gt;\
+                &lt;p nc-class="abc"&gt;我也不是this.node&lt;/p&gt;'</span>;
+    }
+});
+</code></pre>
+                <p>如上面所示，通过this.abc可以访问到存有所有标记nc-class为abc的数组。</p>
+            </div>
+
+            <div class="item">
+                <h2 id="el13">nc-refresh</h2>
+                <div class="describe">标记需要局部刷新的节点</div>        
+                <h4>实例</h4>
+                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
+    },
+    keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;Input&lt;/h3&gt;\
+                    &lt;textarea nc-id="textarea" onkeyup="keyup()" rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;\
+                    &lt;h3&gt;Output&lt;/h3&gt;\
+                    &lt;div class="content" nc-refresh &gt;\
+                        {{{html}}}\
+                    &lt;/div&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+</code></pre>
+
+                <p>两种情况下希望局部刷新：1，input输入时防止失去焦点；2：组件太大时防止性能低下。这两种情况可以通过标记nc-refresh来指定局部刷新的节点。</p>
+            </div>
              <div class="footer"></div>
         </div>
          
@@ -438,6 +568,13 @@
                                     <li><a href="#el6"  onclick="scrollTo(event,this)">installed</a></li>\
                                     <li><a href="#el7"  onclick="scrollTo(event,this)">onRefresh</a></li>\
                                     <li><a href="#el8"  onclick="scrollTo(event,this)">onOptionChange</a></li>\
+                                    <li class="pure-menu-heading">Built-In Properties</li>\
+                                    <li><a href="#el9"  onclick="scrollTo(event,this)">options</a></li>\
+                                    <li><a href="#el10"  onclick="scrollTo(event,this)">node</a></li>\
+                                    <li class="pure-menu-heading">Special Marks</li>\
+                                    <li><a href="#el11"  onclick="scrollTo(event,this)">nc-id</a></li>\
+                                    <li><a href="#el12"  onclick="scrollTo(event,this)">nc-class</a></li>\
+                                    <li><a href="#el13"  onclick="scrollTo(event,this)">nc-refresh</a></li>\
                                 </ul>\
                             </div>';
             }

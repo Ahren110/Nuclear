@@ -102,23 +102,13 @@ var MarkdownEditor = Nuclear.create({
     install: function () {
         this.option.html = marked(this.option.value);
     },
-    installed: function () {
-        this.textarea = this.node.querySelector("textarea");
-        this.textarea.addEventListener("keyup", function () {
-            this.option.html = marked(this.textarea.value);
-        }.bind(this), false);
-    },
-    onRefresh: function () {
-        this.content = this.node.querySelector(".content");
-        this.content.style.cursor = "pointer";
-        this.content.addEventListener("click", function () {
-            this.content.style.backgroundColor = "#A5E4F5";
-        }.bind(this), false);
+    keyup: function () {
+        this.option.html = marked(this.textarea.value);
     },
     render: function () {
         return '<div>\
                     <h3>Input</h3>\
-                    <textarea rows="10" cols="25">{{value}}</textarea>\
+                    <textarea nc-id="textarea" onkeyup="keyup()" rows="10" cols="25">{{value}}</textarea>\
                     <h3>Output</h3>\
                     <div class="content" nc-refresh >\
                         {{{html}}}\

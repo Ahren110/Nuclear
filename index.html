@@ -813,37 +813,24 @@ $.alert = <span class="hljs-function"><span class="hljs-keyword">function</span>
                             <div class="playground">
 
                                 <div class="playgroundCode">
-                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.create({
+                                    <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.create({
     install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
     },
-     installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.textarea = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">"textarea"</span>);
-        <span class="hljs-keyword">this</span>.textarea.addEventListener(<span class="hljs-string">"keyup"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-            <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
-        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
-    },
-    onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.content = <span class="hljs-keyword">this</span>.node.querySelector(<span class="hljs-string">".content"</span>);
-        <span class="hljs-keyword">this</span>.content.style.cursor =<span class="hljs-string">"pointer"</span> ;
-        <span class="hljs-keyword">this</span>.content.addEventListener(<span class="hljs-string">"click"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-            <span class="hljs-keyword">this</span>.content.style.backgroundColor = <span class="hljs-keyword">"#A5E4F5"</span>;
-        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+    keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
                     &lt;h3&gt;Input&lt;/h3&gt;\
-                    &lt;textarea rows="15" cols="35"&gt;{{value}}&lt;/textarea&gt;\
+                    &lt;textarea nc-id="textarea" onkeyup="keyup()" rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;\
                     &lt;h3&gt;Output&lt;/h3&gt;\
                     &lt;div class="content" nc-refresh &gt;\
                         {{{html}}}\
                     &lt;/div&gt;\
                 &lt;/div&gt;'</span>;
-
     }
 });
-
-<span class="hljs-keyword">new</span> MarkdownEditor({ value: <span class="hljs-string">'Type some *markdown* here!'</span>, html: <span class="hljs-string">''</span> },<span class="hljs-string">"#markdownContainer"</span>)
 </code></pre>
                                 </div>
                                 <div class="playgroundPreview">
