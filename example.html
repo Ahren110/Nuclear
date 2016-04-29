@@ -9,10 +9,10 @@
     <link href="css/demo.css" rel="stylesheet" />
 </head>
 <body>
-
+   
 
     <div class="container">
-
+       
         <div class="nav-main">
             <div class="wrap">
                 <span class="nav-home">
@@ -25,22 +25,333 @@
                 </ul>-->
 
                 <ul class="nav-site nav-site-external">
-                    <li><a href="api.html">API文档</a></li>
+                     <li><a href="api.html">API文档</a></li>
                     <li><a href="https://github.com/AlloyTeam/Nuclear">GitHub</a></li>
-                    <!-- <li><a href="https://github.com/AlloyTeam/Nuclear/zipball/master">下载</a></li>-->
+                   <!-- <li><a href="https://github.com/AlloyTeam/Nuclear/zipball/master">下载</a></li>-->
                     <li><a href="http://www.alloyteam.com/">团队博客</a></li>
                     <!--          <li><a href="en.html">English</a></li>-->
                 </ul>
             </div>
         </div>
 
-        <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 101; width: 140px; height: 140px;">
+
+
+   
+
+        <a href="https://github.com/AlloyTeam/Nuclear" target="_blank" style="position: fixed; right: 0; top: 0; z-index: 101;width:140px;height:140px;">
             <img src="http://alloyteam.github.io/AlloyGameEngine/AlloyPaper/example/asset/img/github.png" alt="">
         </a>
         <section class="content wrap">
+            
+        
             <section class="home-section">
                 <div id="examples">
-                     <div class="example">
+                 
+                    <div>
+                        <h3>反斜杠解药1:ES6</h3>
+                        <pre class="javascript hljs"><code class="js" ><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        evt.preventDefault();
+        <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> `&lt;div&gt;
+                  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span> {{#items}} <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{.}}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span> {{/items}}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+                  <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onsubmit</span>=<span class="hljs-value">"add(event)"</span> &gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">nc-id</span>=<span class="hljs-value">"textBox"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>  /&gt;</span>
+                   <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>Add #{{items.length}}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+                 <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+               <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>`;
+    },
+    style: function () {
+        return `h3 { color:red; }
+                button{ color:green;}`;
+    }
+});
+</span></code></pre>
+                        <p> 【墙裂声明】不适应反斜杠的话直接上ES6  template literals -->: <a href="http://babeljs.io/repl/#?evaluate=true&presets=es2015%2Creact%2Cstage-2&experimental=false&loose=false&spec=false&code=var%20TodoApp%20%3D%20Nuclear.create(%7B%0D%0A%20%20%20%20add%3A%20function%20(evt)%20%7B%0D%0A%20%20%20%20%20%20%20%20evt.preventDefault()%3B%0D%0A%20%20%20%20%20%20%20%20this.option.items.push(this.textBox.value)%3B%0D%0A%20%20%20%20%7D%2C%0D%0A%20%20%20%20render%3A%20function%20()%20%7B%0D%0A%20%20%20%20%20%20%20%20return%20%60%3Cdiv%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3ETODO%3C%2Fh3%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cul%3E%20%7B%7B%23items%7D%7D%20%3Cli%3E%7B%7B.%7D%7D%3C%2Fli%3E%20%7B%7B%2Fitems%7D%7D%3C%2Ful%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cform%20onsubmit%3D%22add(event)%22%20%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20nc-id%3D%22textBox%22%20type%3D%22text%22%20%20%2F%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%3EAdd%20%23%7B%7Bitems.length%7D%7D%3C%2Fbutton%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fform%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%60%3B%0D%0A%20%20%20%20%7D%2C%0D%0A%20%20%20%20style%3A%20function%20()%20%7B%0D%0A%20%20%20%20%20%20%20%20return%20%60h3%20%7B%20color%3Ared%3B%20%7D%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%7B%20color%3Agreen%3B%7D%60%3B%0D%0A%20%20%20%20%7D%0D%0A%7D)%3B" target="_blank">点我点我</a></p>
+                    </div>
+                    <div>
+                        <h3>反斜杠解药2:拆分到文件</h3>
+                        <p>模板文件todo/index.html</p>
+                        <pre class="javascript hljs"><code class="js">&lt;div&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span> {{#items}} <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{.}}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span> {{/items}}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onsubmit</span>=<span class="hljs-value">"add(event)"</span> &gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">nc-id</span>=<span class="hljs-value">"textBox"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>  /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>Add #{{items.length}}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+</span></code></pre>
+                         <p>css文件todo/index.css</p>
+                        <pre class="css hljs"><code class="css"><span class="hljs-tag">h3</span> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">red</span></span>; <span class="hljs-rule">}</span></span>
+<span class="hljs-tag">button</span><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">green</span></span>;<span class="hljs-rule">}</span></span>
+</code></pre>
+                          <p>js文件todo/index.js</p>
+                        <pre class="javascript hljs"><code class="JS">loadFile(<span class="hljs-string">"todo/index.html"</span>, <span class="hljs-string">"todo/index.css"</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(tpl, css)</span> </span>{
+    <span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+        add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            evt.preventDefault();
+            <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        },
+        render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> tpl;
+        },
+        style: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> css;
+        }
+    });
+})
+</code></pre>
+                         <p>明显可以看到，很容易放弃模板和CSS可编程性，把他们独立放到单独的文件夹里去。发布的时候可以通过构建将他们又放到一起。当然loadFile方法需要做好开发环境和合并之后的发布线上环境的兼容，这个不是什么困难的问题。</p>
+                    </div>
+
+                    <div>
+                        <h3>反斜杠解药3:模板写在HTML标签里</h3>
+                        <pre class="javascript hljs"><code class="js" >&lt;!DOCTYPE html&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"utf-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Nuclear<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todoListContainer"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"display: none;"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">style</span> <span class="hljs-attribute">scoped</span>&gt;</span><span class="css">
+            <span class="hljs-tag">h3</span> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">red</span></span>; <span class="hljs-rule">}</span></span>
+            <span class="hljs-tag">button</span><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">green</span></span>;<span class="hljs-rule">}</span></span>
+        </span><span class="hljs-tag">&lt;/<span class="hljs-title">style</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>{{#items}}<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{.}}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>{{/items}}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onsubmit</span>=<span class="hljs-value">"add(event)"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">nc-id</span>=<span class="hljs-value">"textBox"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>Add #{{items.length}}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"http://alloyteam.github.io/Nuclear/js/nuclear.min.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+        <span class="hljs-keyword">var</span> todoTpl = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">"#todoListContainer"</span>).innerHTML;
+
+        <span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+            add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+                evt.preventDefault();
+                <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+            },
+            render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+                <span class="hljs-keyword">return</span> todoTpl;
+            },
+            installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+                <span class="hljs-keyword">this</span>.node.parentNode.style.display = <span class="hljs-string">"block"</span>;
+            }
+        });
+
+        <span class="hljs-keyword">new</span> TodoApp({ items: [] }, <span class="hljs-string">"#todoListContainer"</span>);
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</span></code></pre>
+                        <p>可以看到，为了防止模板文件直接展示出来，在容器节点加了<code>display:none</code>,在组件<code>installed</code>事件触发时候再显示出来。这里模板文件的标签就是组件渲染的容器。</p>
+                    </div>
+                    <div class="example">
+                        <h3 id="e1">声明式事件绑定</h3>
+                        <div  class="todoExample">
+                            <div class="playground">
+                                <div class="playgroundCode">
+                                  <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        evt.preventDefault();
+        <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;TODO&lt;/h3&gt;\
+                    &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;\
+                    &lt;form onsubmit="add(event)" &gt;\
+                        &lt;input nc-id="textBox" type="text"  /&gt;\
+                        &lt;button&gt;Add #{{items.length}}&lt;/button&gt;\
+                    &lt;/form&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+<span class="hljs-keyword">new</span> TodoApp({ items: [] }, <span class="hljs-string">"#todoListContainer"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                 <div id="todoListContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            以前我们的最佳实践里不建议在dom元素上直接声明事件绑定与调用，因为所调用的方法必定要污染全局某个变量，第二是如果该dom加载完成，而js里定义的事件未加载完成则会报脚本错误。而Nuclear解决了这两大痛点，非常建议和支持声明式事件绑定，Nuclear希望在不丢失语义的前提下，通过最少的代码去书写应用程序。上面的代码，你不用担心<code>onsubmit</code>的<code>add</code>方法的上下文信息，Nuclear会帮你处理好这一切。被调用的<code>add</code>方法就是你在 Nuclear.create中定义的add方法。
+                        </p>
+                    </div>
+
+                    <div class="example">
+                        <h3  id="e3">模板引擎可替换</h3>
+<pre class="javascript hljs"><code class="js" >Nuclear.Tpl.render = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(tpl, data)</span></span>{
+    <span class="hljs-keyword">return</span> template.compile(tpl)(data);
+};
+
+<span class="hljs-keyword">var</span> ArtTemplateApp = Nuclear.create({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h1&gt;{{title}}&lt;/h1&gt;\
+                    &lt;ul&gt;\
+                    {{each list as value i}}\
+                        &lt;li&gt;索引 {{i + 1}} ：{{value}}&lt;/li&gt;\
+                    {{/each}}\
+                    &lt;/ul&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">new</span> ArtTemplateApp( {
+    title: <span class="hljs-string">'标签'</span>,
+    list: [<span class="hljs-string">'文艺'</span>, <span class="hljs-string">'博客'</span>, <span class="hljs-string">'摄影'</span>, <span class="hljs-string">'电影'</span>, <span class="hljs-string">'民谣'</span>, <span class="hljs-string">'旅行'</span>, <span class="hljs-string">'吉他'</span>]
+},<span class="hljs-string">"#container"</span>);
+</code></pre>
+
+                        <p>通过重写<code>Nuclear.Tpl.render</code>方法使用其他模板引擎。比如上面的例子就是使用artTemplate！</p>
+                    </div>
+
+                    <div class="example">
+                        <h3 id="e2">无限嵌套</h3>
+                        <div  class="todoExample">
+                            <div class="playground">
+                                <div class="playgroundCode">
+                                <pre class="javascript hljs"><code class="JS"><span class="hljs-keyword">var</span> TodoList = Nuclear.create({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>;
+    }
+});
+<span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.todoList = <span class="hljs-keyword">new</span> TodoList({ items: [] })
+    },
+    add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        evt.preventDefault();
+        <span class="hljs-keyword">this</span>.todoList.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        <span class="hljs-comment">//刷新TodoApp</span>
+        <span class="hljs-keyword">this</span>.refresh();
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;TODO&lt;/h3&gt;'</span>
+                    + <span class="hljs-keyword">this</span>.todoList.render() +
+                    <span class="hljs-string">'&lt;form onsubmit="add(event)" &gt;\
+                    &lt;input nc-id="textBox" type="text"  /&gt;\
+                    &lt;button&gt;Add #'</span>+ <span class="hljs-keyword">this</span>.todoList.option.items.length + <span class="hljs-string">'&lt;/button&gt;\
+                    &lt;/form&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+<span class="hljs-keyword">new</span> TodoApp({}, <span class="hljs-string">"#todoList2Container"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                 <div id="todoList2Container"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            明明是两层嵌套，为什么标题是无限嵌套？我们可以回忆一下我们定义Tree的数据格式可以分为下面两种。
+                        </p>
+                         <div class="playground">
+                          <div class="playgroundCode">
+                        <pre class="javascript hljs"><code class="JS"><span class="hljs-keyword">var</span> tree = [
+           {
+               label: <span class="hljs-string">'A'</span>,
+               children: [
+                    { label: <span class="hljs-string">'A-B'</span> },
+                    {
+                        label: <span class="hljs-string">'A-C'</span>, children: [
+                           { label: <span class="hljs-string">'A-C-1'</span> }
+                        ]
+                    },
+                  ]
+           }, 
+           { label: <span class="hljs-string">'B'</span> }
+]
+
+<span class="hljs-keyword">var</span> tree = [
+           { id: <span class="hljs-number">1</span>, label: <span class="hljs-string">'A'</span>, parentId: <span class="hljs-literal">null</span> },
+           { id: <span class="hljs-number">2</span>, label: <span class="hljs-string">'A-B'</span>, parentId: <span class="hljs-number">1</span> },
+           { id: <span class="hljs-number">3</span>, label: <span class="hljs-string">'A-C'</span>, parentId: <span class="hljs-number">1</span> },
+           { id: <span class="hljs-number">4</span>, label: <span class="hljs-string">'A-C-1'</span>, parentId: <span class="hljs-number">3</span> },
+           { id: <span class="hljs-number">5</span>, label: <span class="hljs-string">'B'</span>, parentId: <span class="hljs-literal">null</span> }
+]
+</code></pre></div> </div>
+                        <p>
+                            Nulcear使用的是第二种思路。即：看上去永远只有两层嵌套，实际是无限嵌套。再即：我只管我依赖谁，至于你依赖谁我就管不了那么多了。
+                        </p>
+                    </div>
+                       <div class="example">
+                        <h3  id="e6">轮播组件</h3>
+                        <div id="carouselExample">
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+              <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Carousel = Nuclear.create({
+    installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.links = <span class="hljs-keyword">this</span>.nav.querySelectorAll(<span class="hljs-string">'a'</span>);
+        <span class="hljs-keyword">this</span>.active();
+    },
+    to: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(index)</span> </span>{
+        <span class="hljs-keyword">this</span>.option.index = index;
+    },
+    active: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        util.removeClass(<span class="hljs-keyword">this</span>.links, <span class="hljs-string">"active"</span>);
+        util.addClass(<span class="hljs-keyword">this</span>.links[<span class="hljs-keyword">this</span>.option.index], <span class="hljs-string">"active"</span>);
+    },
+    onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
+        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"index"</span>) {
+            <span class="hljs-keyword">this</span>.carouselScroll.style.left = value * -<span class="hljs-number">100</span> + <span class="hljs-string">"%"</span>;
+            <span class="hljs-keyword">this</span>.active();
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+    },
+    style: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">".nuclear-carousel-box { transition: left 1s cubic-bezier(0.22, 0.61, 0.36, 1); }"</span>;
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">var</span> imgCount = <span class="hljs-keyword">this</span>.option.imgs.length;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div class="nuclear-carousel"&gt;\
+                    &lt;div style="width: '</span> + imgCount * <span class="hljs-number">100</span> + <span class="hljs-string">'%; left: '</span> + <span class="hljs-keyword">this</span>.option.index * -<span class="hljs-number">100</span> + <span class="hljs-string">'%;" nc-id="carouselScroll" class="nuclear-carousel-box"&gt;\
+                        {{#imgs}}&lt;img style=" width:'</span>+ <span class="hljs-number">100</span> / imgCount + <span class="hljs-string">'%;" src="{{.}}" /&gt; {{/imgs}}\
+                    &lt;/div&gt;\
+                    &lt;div nc-id="nav"  class="nuclear-nav"&gt; \
+                        {{#imgs}}&lt;a onclick="to({{@index}})"&gt;&lt;/a&gt; {{/imgs}}&lt;/div&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">new</span> Carousel({
+    imgs: [<span class="hljs-string">"img/room.jpg"</span>, <span class="hljs-string">"img/sleep.jpg"</span>, <span class="hljs-string">"img/watch.jpg"</span>],
+    index: <span class="hljs-number">0</span>
+}, <span class="hljs-string">"#carouselContainer"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                    <div id="carouselContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            <code>installed</code>代表dom元素生成到它的容器内由Nuclear自动执行。<code>onOptionChange</code>代表组件的配置发生变更时Nuclear自动执行。模板里使用了<code>nc-id="carouselScroll"</code>和<code>nc-id="nav"</code>自动查询dom，在组件方法里面，可通过<code>this.carouselScroll</code>和<code>this.nav</code>可以直接访问该dom元素。
+                        </p>
+                      
+                    </div>
+                       <div class="example">
                         <h3  id="e5">分页组件</h3>
                         <div id="paginationExample">
                             <div class="playground" style="position:relative;">
@@ -174,7 +485,63 @@
                         </p>
                     </div>
 
-                     <div class="example">
+                    
+
+
+                      <div class="example">
+                        <h3  id="e7">Alert组件</h3>
+                        <div id="alertExample">
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Alert = Nuclear.create({
+    hide: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        <span class="hljs-keyword">this</span>.option.display = <span class="hljs-literal">false</span>;
+        evt.stopPropagation();
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.option.display) <span class="hljs-keyword">return</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;div class="ui-mask" style="height:'</span> + (<span class="hljs-built_in">Math</span>.max(<span class="hljs-built_in">document</span>.body.scrollHeight, <span class="hljs-built_in">document</span>.body.clientHeight) - <span class="hljs-number">1</span>) + <span class="hljs-string">'px;"&gt;&lt;/div&gt;\
+                    &lt;div class="ui-dialog" style="top:'</span> + ((<span class="hljs-built_in">document</span>.body.scrollTop || <span class="hljs-built_in">document</span>.documentElement.scrollTop) + <span class="hljs-built_in">window</span>.innerHeight / <span class="hljs-number">2</span>) + <span class="hljs-string">'px"&gt;\
+                        &lt;div class="ui-dialog-title"&gt;\
+                            &lt;h3&gt;{{title}}&lt;/h3&gt;\
+                        &lt;/div&gt;\
+                        &lt;div class="ui-dialog-content"&gt;\
+                            &lt;div title="{{msg}}"&gt;\
+                                &lt;p&gt;{{msg}}&lt;/p&gt;&lt;/div&gt;\
+                            &lt;/div&gt;\
+                        &lt;div onclick="hide(event)"  class="ui-dialog-btns"&gt;&lt;a class="ui-btn ui-btn-1"&gt;好&lt;/a&gt;\
+                        &lt;/div&gt;\
+                    &lt;/div&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+
+$.alert = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(msg, title)</span> </span>{
+    <span class="hljs-keyword">new</span> Alert({ msg: msg, title: title || <span class="hljs-string">"提示"</span>, display:<span class="hljs-literal">true</span>}, <span class="hljs-string">"body"</span>);
+}
+
+<span class="hljs-keyword">new</span> Button({
+    text: <span class="hljs-string">"点我试试alert"</span>,
+    onClick: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        $.alert(<span class="hljs-string">"Nuclear大法好"</span>);
+    }
+}, <span class="hljs-string">"#alertContainer"</span>)
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                    <div id="alertContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            你不需要在CSS里为alert的节点定义<code>display:none</code>,那是传统的做法。使用Nuclear的思路是，如果你没有看到它，它确实已经不存在了（HTML结构里面已经能够没有了它）。因为<code>if (!this.option.display) return;</code>代表返回空的模板了。这个例子还用到了Button组件，Button组件可以见下方的例子。
+                        </p>
+                    </div>
+
+                    <div class="example">
                         <h3  id="e8">选项卡</h3>
                         <div id="tabExample">
                             <div class="playground">
@@ -226,7 +593,162 @@
                         </p>
                     </div>
 
-                     <div class="example">
+
+                       <div class="example">
+                        <h3  id="e9">跑马灯</h3>
+                        <div id="marqueeExample">
+                            <div class="playground">
+                                <div class="playgroundCode">
+                    <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Marquee = Nuclear.create({
+    installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.end =-<span class="hljs-number">20</span>+ <span class="hljs-built_in">parseInt</span>(<span class="hljs-built_in">window</span>.getComputedStyle(<span class="hljs-keyword">this</span>.scroll)[<span class="hljs-string">"width"</span>])*-<span class="hljs-number">1</span>;
+        <span class="hljs-keyword">this</span>.loop = setInterval(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.option.left -= <span class="hljs-number">5</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.left &lt; <span class="hljs-keyword">this</span>.end) <span class="hljs-keyword">this</span>.option.left = <span class="hljs-keyword">this</span>.option.width;
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">100</span>);                
+    },
+    onOptionChange: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prop, value, oldValue, path)</span> </span>{
+        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">"left"</span>) {
+            <span class="hljs-keyword">this</span>.scroll.style.left = value + <span class="hljs-string">"px"</span>;
+            <span class="hljs-comment">//return false代表不触发render</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div style="width:{{width}}px;overflow:hidden;position:relative;"&gt;\
+                    &lt;div  style="visibility:hidden;"&gt;a核&lt;/div&gt;\
+                    &lt;div nc-id="scroll" style="position:absolute; white-space:nowrap;left:{{left}}px;top:0;"&gt;{{content}}&lt;/div&gt;\
+                &lt;/div&gt;'</span>;
+    }
+})
+<span class="hljs-keyword">new</span> Marquee({ width: <span class="hljs-number">480</span>, left: <span class="hljs-number">480</span>, content: <span class="hljs-string">"张三中了 笔记本电脑  李四中了 苹果手机  王五中了 QQ靓号  孙六中了 马尔代夫双人游  "</span> }, <span class="hljs-string">"#container"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview" style="padding:0;">
+                                    <div id="marqueeContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            Nuclear可以通过标记<code>nc-id</code>来自动回查询dom，只要标记了，在组件的方法中就可以通过<code>this.标记的id</code>去使用改dom对象。如上面所示的<code>this.scroll</code>就是被标记<code> nc-id="scroll"</code>的dom元素。
+                        </p>
+                           <p>
+                               上面这个跑马灯例子，增加了onOptionChange方法，Nuclear会在option发生改变时候自动帮你执行onOptionChange方法，而不是调用render方法摧毁整个dom。你可以通过onOptionChange携带的参数知道那个属性发生了变更，onOptionChange函数返回false代表不摧毁dom。这个例子去掉onOptionChange方法也能实现同样的效果，Nuclear使用者要权衡执行频率、性能开销自行决定使用哪种方式。
+                        </p>
+                    </div>
+                                                                                           
+                    <div class="example">
+                        <h3  id="e10">简单的示例</h3>
+                        <div id="helloExample">
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> HelloMessage = Nuclear.create({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;Hello , {{name}} !&lt;/div&gt;'</span>;
+    }
+})
+<span class="hljs-keyword">new</span> HelloMessage( { name: <span class="hljs-string">"Nuclear"</span> }, <span class="hljs-string">"#helloContainer"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                    <div id="helloContainer"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p>
+                            Nuclear通过<code> Nuclear.create</code>方法创建结构型组件,使用<code> Nuclear.createAction</code>创建非结构型组件，这个例子就是结构型组件。
+                        </p>
+                        <p>
+                            创建结构型必须包含 <code>render()</code> 方法，该方法返回渲染的模板，Nuclear使用<a href="https://github.com/janl/mustache.js" target="_blank">mustache.js</a>作为模板渲染引擎，创建组件<code>new HelloMessage</code>的第一个参数是提供给模板引擎的数据，第二个参数是组件的容器，并且可以任何方法都可通过<code>this.option</code>访问该数据。
+        
+                        </p>
+                    </div>
+                    <div class="example">
+                        <h3  id="e11">有配置的组件</h3>
+                        <div id="timerExample">
+
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                                    <pre class="javascript hljs"><code class="javascript"><span class="hljs-keyword">var</span> Timer = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//react这里不需要加bind(this),会导致对javascript上下文的误解</span>
+        <span class="hljs-keyword">this</span>.interval = setInterval(<span class="hljs-keyword">this</span>.tick.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">1000</span>);
+    },
+    tick: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.secondsElapsed++;
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">' &lt;div&gt;Seconds Elapsed: {{secondsElapsed}}&lt;/div&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">new</span> Timer({ secondsElapsed: <span class="hljs-number">0</span> },<span class="hljs-string">"#timerContainer"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                    <div id="timerContainer"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <p>
+                            Nuclear通过<code>install</code>方法来初始化一些属性或者行为。
+        
+                        </p>
+                    </div>
+
+
+                    <div class="example">
+                        <h3  id="e12">Todo应用</h3>
+                        <div class="todoExample">
+
+                            <div class="playground">
+                                <div class="playgroundCode">
+                             <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    onRefresh: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{   
+        <span class="hljs-keyword">this</span>.form.addEventListener(<span class="hljs-string">"submit"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            evt.preventDefault();                
+            <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-literal">false</span>);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+       <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                 &lt;h3&gt;TODO&lt;/h3&gt;\
+                &lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;\
+                  &lt;form nc-id="form" &gt;\
+                   &lt;input nc-id="textBox" type="text"  /&gt;\
+                   &lt;button&gt;Add #{{items.length}}&lt;/button&gt;\
+                 &lt;/form&gt;\
+               &lt;/div&gt;'</span>;
+    }
+});
+<span class="hljs-keyword">new</span> TodoApp( { items: [] },<span class="hljs-string">"#container"</span>);
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                    <div id="todoContainer"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <p>
+                         这个例子也用到了标记<code>nc-id</code>来自动化查找dom的特性，如上面的<code>form</code>和<code>textBox</code>。这里比较让人感觉愉快的地方是，nc-id只要保证组件内部唯一就行，其他组件内可以出现相同的id。Nuclear的通过<code>onRefresh</code>注册了一些回调事件，该事件会在组件被更新之后，由Nuclear自动执行。通过<code> this.option</code>可以访问到用户传进的配置。没接触Nuclear之前很难想象，仅仅十行左右的代码就能实现一个Todo应用吧。
+                        </p>
+                        <p>
+                           Nuclear使用还可使用另外两种方式实现该例子：<br/>通过继承：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo2.html" target="_blank">Todo示例2</a><br/>install的时候直接创建并共享一个option：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo3.html" target="_blank">Todo实例3</a><br/>install的时候直接创建并且切断observe树：<a href="https://github.com/AlloyTeam/Nuclear/blob/master/example/todo4.html" target="_blank">Todo实例4</a>
+                        </p>
+                    </div>
+
+                
+       
+                        
+                <div class="example">
                     <h3  id="e16">动态模板渲染</h3>
                     <div id="progressExample">
                         <div class="playground">
@@ -269,18 +791,42 @@ progress.option.value = <span class="hljs-number">0.3</span>;
                     </p>
 
                 </div>
+
+
+
+
+          
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
             <hr class="home-divider" />
             <section class="home-bottom-section">
                 <div class="buttons-unit">
                     <a href="https://github.com/AlloyTeam/Nuclear" class="button">View on GitHub</a>
-                    <!--  <a href="https://github.com/AlloyTeam/Nuclear/zipball/master" class="button">Download Nuclear</a>-->
+                  <!--  <a href="https://github.com/AlloyTeam/Nuclear/zipball/master" class="button">Download Nuclear</a>-->
                 </div>
             </section>
+
+
         </section>
 
+
         <footer class="wrap">
+
             <div class="center">
                 &copy; 2014&ndash;2015 AlloyTeam Inc.<br>
             </div>

@@ -1,4 +1,104 @@
-﻿
+﻿var TodoApp2 = Nuclear.create({
+    add: function (evt) {
+        evt.preventDefault();
+        this.option.items.push(this.textBox.value);
+    },
+    render: function () {
+        return '<div>\
+                    <h3>TODO</h3>\
+                <ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>\
+                    <form onsubmit="add(event)" >\
+                    <input nc-id="textBox" type="text"  />\
+                    <button>Add #{{items.length}}</button>\
+                    </form>\
+                </div>';
+    }
+});
+new TodoApp2({ items: [] }, "#todoListContainer");
+
+var TodoList = Nuclear.create({
+    render: function () {
+        return '<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
+    }
+});
+var TodoApp = Nuclear.create({
+    install: function () {
+        this.todoList = new TodoList({ items: [] })
+    },
+    add: function (evt) {
+        evt.preventDefault();
+        this.todoList.option.items.push(this.textBox.value);
+        //触发父容器的刷新
+        this.refresh();
+    },
+    render: function () {
+        return '<div>\
+                    <h3>TODO</h3>'
+                    + this.todoList.render() +
+                    '<form onsubmit="add(event)" >\
+                    <input nc-id="textBox" type="text"  />\
+                    <button>Add #'+ this.todoList.option.items.length + '</button>\
+                    </form>\
+                </div>';
+    }
+});
+new TodoApp({}, "#todoList2Container");
+
+var HelloMessage = Nuclear.create({
+    render: function () {
+        return '<div>Hello , {{name}} !</div>';
+    }
+})
+new HelloMessage({ name: "Nuclear" }, "#helloContainer");
+
+var Timer = Nuclear.create({
+    install: function () {
+        //react这里不需要加bind(this),会导致对javascript上下文的误解
+        this.interval = setInterval(this.tick.bind(this), 1000);
+    },
+    uninstall: function () {
+        clearInterval(this.interval);
+    },
+    tick: function () {
+        this.option.secondsElapsed++;
+    },
+    render: function () {
+        return ' <div>Seconds Elapsed: {{secondsElapsed}}</div>';
+    }
+});
+
+new Timer({ secondsElapsed: 0 }, "#timerContainer");
+
+var TodoList = Nuclear.create({
+    render: function () {
+        return '<ul> {{#items}} <li>{{.}}</li> {{/items}}</ul>';
+    }
+});
+
+var TodoApp = TodoList.create({
+    onRefresh: function () {
+        this.form = this.node.querySelector("form");
+        this.textBox = this.node.querySelector("input");
+        this.form.addEventListener("submit", function (evt) {
+            evt.preventDefault();
+            this.option.items.push(this.textBox.value);
+        }.bind(this), false);
+    },
+    render: function () {
+        return '<div>\
+                         <h3>TODO</h3>'
+                  + this._super.render() +
+                  '<form >\
+                           <input type="text"  />\
+                           <button>Add #{{items.length}}</button>\
+                         </form>\
+                       </div>';
+    }
+});
+
+new TodoApp({ items: [] }, "#todoContainer");
+
+
 var Progress = Nuclear.create({
     install: function () {
         this.option.percent = function () {
@@ -22,6 +122,22 @@ var progress = new Progress({ value: 0.6, displayNumber: true }, "#progressConta
 progress.option.value = 0.3;
 var progress = new Progress({ value: 0.6, displayNumber: false }, "#progressContainer2");
 
+
+var Button = Nuclear.create({
+    install: function () {
+        this.option.disable = false;
+    },
+    installed: function () {
+        this.node.addEventListener("click", function (evt) {
+            if (this.option.onClick) {
+                this.option.onClick.call(this.node, evt);
+            }
+        }.bind(this), false);
+    },
+    render: function () {
+        return ' <a class="btn {{#disable}}disable{{/disable}}">{{text}}</a>';
+    }
+})
 
 
 
@@ -548,9 +664,7 @@ var Nav = Nuclear.create({
                       <li><a href="#e10" onclick="scrollTo(event,this)">简单的示例</a></li>\
                       <li><a href="#e11" onclick="scrollTo(event,this)">有配置的组件</a></li>\
                       <li><a href="#e12" onclick="scrollTo(event,this)">Todo应用</a></li>\
-                      <li><a href="#e13" onclick="scrollTo(event,this)">Markdown编辑器</a></li>\
                       <li><a href="#e16" onclick="scrollTo(event,this)">动态模板渲染</a></li>\
-                      <li><a href="#e17" onclick="scrollTo(event,this)">组件继承</a></li>\
                  </ul>';
     }
 
