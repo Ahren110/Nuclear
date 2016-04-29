@@ -153,7 +153,7 @@
                             </div>
                         </div>
                         <p>
-                            Nuclear通过标记<code>nc-refresh</code>来配置需要局部刷新的地方。Nuclear可以很轻松和任何框架/库搭配使用，如上面的markedjs。
+                            To set partial refresh place by marking nc-refresh. Nuclear can easily work with any framework / library , as in the above markedjs.
                         </p>
 
                     </div>
@@ -190,14 +190,14 @@
 
 
 <span class="hljs-keyword">new</span> Button({
-    text: <span class="hljs-string">"普通按钮"</span>,
+    text: <span class="hljs-string">"I am a Button"</span>,
     click: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.option.text);<span class="hljs-comment">//output: 普通按钮</span>
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.option.text);<span class="hljs-comment">//output: I am a Button</span>
     }
 }, <span class="hljs-string">"#buttonContainer"</span>);
 
 <span class="hljs-keyword">new</span> SwitchButton({
-    text: <span class="hljs-string">"开关按钮"</span>,
+    text: <span class="hljs-string">"Switch Button"</span>,
     open: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ },
     close: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ }
 }, <span class="hljs-string">"#switchButtonContainer"</span>);
@@ -216,7 +216,7 @@
                     </div>
 
                     <p>
-                        通过<code> Button.create</code>方法可以创建继承<code> Button</code>的组件。可以看到子类没有定义render方法，因为它们可以共用一套模板。当然，你也可以重新定义render，也可以通过<code> this._super</code>访问到父类的所有方法。
+                        Create SwitchButton inherit Button component By Button.create method. You can see the sub-class does not define render method because they can share a set of template. Of course, you can redefine render, can also have access to all methods of the parent class by this._super.
                     </p>
 
                 </div>
@@ -244,7 +244,7 @@
     <script src="js/nuclear.min.js"></script>
     <script src="js/zepto.min.js"></script>
     <script src="js/util.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/en.js"></script>
 </body>
 </html>
 <!--back-slant hater:ES6 split to files template in HTML-->
