@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id="container"></div>
-    <script src="../js/nuclear.min.js"></script>
+    <script src="../js/nuclear.js"></script>
     <script src="../js/ENV.js"></script>
     <script src="../js/memory-stats.js"></script>
     <script src="../js/monitor.js"></script>
@@ -39,12 +39,15 @@
                     </tbody>\
                 </table>';
             }
+        },{
+            twoWay:false
         });
 
         var app = new Test( { databases: ENV.generateData().toArray() },"#container");
 
         function loadSamples() {
             app.option.databases = ENV.generateData().toArray();
+            app.refresh();
             Monitoring.renderRate.ping();
             setTimeout(loadSamples, ENV.timeout);
         }
