@@ -41,7 +41,7 @@
             }
         });
 
-        var app = new Test("#container", { databases: ENV.generateData().toArray() });
+        var app = new Test( { databases: ENV.generateData().toArray() },"#container");
 
         function loadSamples() {
             app.option.databases = ENV.generateData().toArray();
