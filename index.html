@@ -36,7 +36,7 @@
                 <ul class="nav-site nav-site-external">
                      <li><a href="api.html">API文档</a></li>
                     <li><a href="https://github.com/AlloyTeam/Nuclear">GitHub</a></li>
-                   <li><a href="example.html">Example</a></li>
+                   <li><a href="example.html">示例</a></li>
                     <li><a href="http://www.alloyteam.com/">团队博客</a></li>
                     <!--          <li><a href="en.html">English</a></li>-->
                 </ul>
@@ -113,7 +113,7 @@
                         <div>
                             <img src="img/guide.png" alt="" />
                         </div>
-                        <p>1：一个组件会依赖option，上面的option是<code>{items:[]}</code>；<br />2：代码里可以通过this.option访问的属性。option的变更会自动更新dom<br />3：模板里可以直接访问到option的属性<br />4：add方法不用担心会调用全局的，Nuclear会帮你处理好，add就是调用自身的add。<br />5：button和h3的样式都是局部的，不污染其他组件<br />6：可以通过标记nc-id的方式快速访问dom元素
+                        <p>1：一个组件会依赖option，上面的option是<code>{items:[]}</code>；<br />2：代码里可以通过this.option访问其下面所有属性。option的变更会自动更新dom<br />3：模板里可以直接访问到option的属性<br />4：add方法不用担心会调用全局的，Nuclear会帮你处理好，add就是调用自身的add。<br />5：button和h3的样式都是局部的，不污染其他组件<br />6：可以通过标记nc-id的方式快速访问dom元素
                            
                         </p>
                     </div>
