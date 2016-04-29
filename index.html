@@ -7,6 +7,12 @@
     <link href="css/stylesheet.css" rel="stylesheet" />
     <link href="css/code.css" rel="stylesheet" />
     <link href="css/demo.css" rel="stylesheet" />
+    <style>
+        #examples p{
+            max-width:920px;
+            font-size:15px;
+        }
+    </style>
 </head>
 <body>
    
@@ -104,7 +110,7 @@
                         <div>
                             <img src="img/guide.png" alt="" />
                         </div>
-                        <p>1：一个组件会依赖option，上面的option是<code>{items:[]}</code>；模板里可以直接访问到option的属性，代码里可以通过this.option访问。option的变更会自动更新dom<br />2：add方法不用担心会调用全局的，Nuclear会帮你处理好，add就是调用自身的add。<br />3：可以通过标记nc-id的方式快速访问dom元素<br />4：不用担心h3会污染全局，h3就是你想要的h3<br />5：不用担心button会污染全局，button就是你想要的button<br/>其他：this.option的变更会自动更新dom。如上面的<code>this.option.items.push(this.textBox.value)</code>会自动更新dom。
+                        <p>1：一个组件会依赖option，上面的option是<code>{items:[]}</code>；<br />2：代码里可以通过this.option访问的属性。option的变更会自动更新dom<br />3：模板里可以直接访问到option的属性<br />4：add方法不用担心会调用全局的，Nuclear会帮你处理好，add就是调用自身的add。<br />5：button和h3的样式都是局部的，不污染其他组件<br />6：可以通过标记nc-id的方式快速访问dom元素
                            
                         </p>
                     </div>
