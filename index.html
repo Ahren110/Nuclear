@@ -12,6 +12,9 @@
             max-width:920px;
             font-size:15px;
         }
+        textarea{
+            border:1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -116,6 +119,109 @@
                     </div>
           
                 </div>
+
+                <div class="example">
+                        <h3  id="e13">局部刷新</h3>
+                        <div id="markdownExample">
+
+                            <div class="playground">
+
+                                <div class="playgroundCode">
+                                    <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
+    },
+    keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;h3&gt;Input&lt;/h3&gt;\
+                    &lt;textarea nc-id="textarea" onkeyup="keyup()" rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;\
+                    &lt;h3&gt;Output&lt;/h3&gt;\
+                    &lt;div class="content" nc-refresh &gt;\
+                        {{{html}}}\
+                    &lt;/div&gt;\
+                &lt;/div&gt;'</span>;
+    }
+});
+</code></pre>
+                                </div>
+                                <div class="playgroundPreview">
+                                    <div id="markdownContainer"></div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <p>
+                            Nuclear通过标记<code>nc-refresh</code>来配置需要局部刷新的地方。Nuclear可以很轻松和任何框架/库搭配使用，如上面的markedjs。
+                        </p>
+
+                    </div>
+
+                 <div class="example">
+                    <h3  id="e17">组件继承</h3>
+                    <div id="buttonExample">
+                        <div class="playground">
+                            <div class="playgroundCode">
+                               <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> Button = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">this</span>.option.disable = <span class="hljs-literal">false</span>;
+    },
+    click: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.click) {
+            <span class="hljs-keyword">this</span>.option.click.call(<span class="hljs-keyword">this</span>, evt);
+        }
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">' &lt;a onclick="click(event)" class="btn {{#disable}}disable{{/disable}}"&gt;{{text}}&lt;/a&gt;'</span>;
+    }
+})
+
+<span class="hljs-keyword">var</span> SwitchButton = Button.create({
+    click: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        <span class="hljs-keyword">this</span>.option.disable = !<span class="hljs-keyword">this</span>.option.disable;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.option.disable) {
+            <span class="hljs-keyword">this</span>.option.close &amp;&amp; <span class="hljs-keyword">this</span>.option.close.call(<span class="hljs-keyword">this</span>, evt);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">this</span>.option.open &amp;&amp; <span class="hljs-keyword">this</span>.option.open.call(<span class="hljs-keyword">this</span>, evt);
+        }
+    }
+})
+
+
+<span class="hljs-keyword">new</span> Button({
+    text: <span class="hljs-string">"普通按钮"</span>,
+    click: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.option.text);<span class="hljs-comment">//output: 普通按钮</span>
+    }
+}, <span class="hljs-string">"#buttonContainer"</span>);
+
+<span class="hljs-keyword">new</span> SwitchButton({
+    text: <span class="hljs-string">"开关按钮"</span>,
+    open: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ },
+    close: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ }
+}, <span class="hljs-string">"#switchButtonContainer"</span>);
+</code></pre>
+                            </div>
+                            <div class="playgroundPreview">
+                                <div id="buttonGroup">
+                                    <div id="buttonContainer"></div>
+                                    <div id="switchButtonContainer"></div>
+                                    <div id="countdownButtonContainer"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <p>
+                        通过<code> Button.create</code>方法可以创建继承<code> Button</code>的组件。可以看到子类没有定义render方法，因为它们可以共用一套模板。当然，你也可以重新定义render，也可以通过<code> this._super</code>访问到父类的所有方法。
+                    </p>
+
+                </div>
             </section>
             <hr class="home-divider" />
             <section class="home-bottom-section">
@@ -140,6 +246,6 @@
     <script src="js/nuclear.min.js"></script>
     <script src="js/zepto.min.js"></script>
     <script src="js/util.js"></script>
-    <script src="js/demo.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
