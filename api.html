@@ -184,10 +184,10 @@
             </div>
 
              <div class="item">
-                <h2 id="el2">Nuclear.Tpl.render</h2>
+                <h2 id="el2">Nuclear.render</h2>
                 <div class="describe">重写该方法用于模板引擎替换</div>
                 <h4>实例</h4>
-                <pre class="javascript hljs"><code class="js" >Nuclear.Tpl.render = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(tpl, data)</span></span>{
+                <pre class="javascript hljs"><code class="js" >Nuclear.render = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(tpl, data)</span></span>{
     <span class="hljs-keyword">return</span> template.compile(tpl)(data);
 };
 
@@ -209,7 +209,7 @@
     list: [<span class="hljs-string">'文艺'</span>, <span class="hljs-string">'博客'</span>, <span class="hljs-string">'摄影'</span>, <span class="hljs-string">'电影'</span>, <span class="hljs-string">'民谣'</span>, <span class="hljs-string">'旅行'</span>, <span class="hljs-string">'吉他'</span>]
 },<span class="hljs-string">"#container"</span>);
 </code></pre>
-                 <p>Nuclear.Tpl.render在Nuclear内部调用，不需要使用者调用。使用者可以选择重写该方法替换模板引擎。该方法接收两个参数，tpl是模板，data是数据，返回html字符串。上面的例子是把默认的模板引擎替换成 artTemplate。</p>
+                 <p>Nuclear.render在Nuclear内部调用，不需要使用者调用。使用者可以选择重写该方法替换模板引擎。该方法接收两个参数，tpl是模板，data是数据，返回html字符串。上面的例子是把默认的模板引擎替换成 artTemplate。</p>
             </div>
 
              <div class="item">
@@ -300,7 +300,7 @@
 
                 </table> 
                
-                 <p>如果没有重写Nuclear.Tpl.render方法，则按照mustachejs的语法写就可以。</p>
+                 <p>如果没有重写Nuclear.render方法，则按照mustachejs的语法写就可以。</p>
             </div>
 
             <div class="item">
@@ -569,11 +569,11 @@
             },
             render: function () {
                 return '    <div class="pure-menu pure-menu-open" style="width: 250px; position: fixed; top: 60px; left: 20px;">\
-                                <a class="pure-menu-heading" style="font-size: 18px;">Nuclear API(0.1.6)</a>\
+                                <a class="pure-menu-heading" style="font-size: 18px;">Nuclear API(0.1.7)</a>\
                                 <ul>\
                                     <li class="pure-menu-heading">Core</li>\
                                     <li><a href="#el1"  onclick="scrollTo(event,this)">Nuclear.create</a></li>\
-                                    <li><a href="#el2"  onclick="scrollTo(event,this)">Nuclear.Tpl.render</a></li>\
+                                    <li><a href="#el2"  onclick="scrollTo(event,this)">Nuclear.render</a></li>\
                                     <li class="pure-menu-heading">Life Cycle</li>\
                                     <li><a href="#el3"  onclick="scrollTo(event,this)">install</a></li>\
                                     <li><a href="#el4"  onclick="scrollTo(event,this)">style</a></li>\
