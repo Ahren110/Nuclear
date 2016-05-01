@@ -196,7 +196,7 @@
 
                     <div class="example">
                         <h3  id="e3">模板引擎可替换</h3>
-<pre class="javascript hljs"><code class="js" >Nuclear.Tpl.render = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(tpl, data)</span></span>{
+<pre class="javascript hljs"><code class="js" >Nuclear.render = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(tpl, data)</span></span>{
     <span class="hljs-keyword">return</span> template.compile(tpl)(data);
 };
 
@@ -219,7 +219,7 @@
 },<span class="hljs-string">"#container"</span>);
 </code></pre>
 
-                        <p>通过重写<code>Nuclear.Tpl.render</code>方法使用其他模板引擎。比如上面的例子就是使用artTemplate！</p>
+                        <p>通过重写<code>Nuclear.render</code>方法使用其他模板引擎。比如上面的例子就是使用artTemplate！</p>
                     </div>
 
                     <div class="example">
