@@ -9,7 +9,17 @@ var Todo = Nuclear.create({
         }.bind(this), false);
     },
     onRefresh: function () {
-       // this.textBox.focus();
+        var editingIndex=-1;
+        this.option.items.forEach(function (item, index,array) {
+            if(array[index].isEditing) editingIndex=index;
+        });
+        if(editingIndex===-1){
+            this.textBox.focus();
+        }else{
+            console.log(this.itemTextBox)
+            console.log( this.itemTextBox[editingIndex])
+            this.itemTextBox[editingIndex].focus();
+        }
     },
     toggleState: function (index) {
         this.option.items[index].isCompleted = this.option.items[index].isCompleted ? false : true;
@@ -45,7 +55,6 @@ var Todo = Nuclear.create({
         this.option.items.forEach(function (item, index,array) {
             array[index].isEditing = (currentIndex === index);
         });
-        
     },
     endEdit: function (currentIndex) {
         this.option.items.forEach(function (item, index, array) {
@@ -78,7 +87,7 @@ var Todo = Nuclear.create({
                                     <input  onclick="toggleState({{@index}})" class="toggle" type="checkbox" {{#isCompleted}}checked{{/isCompleted}}><label >{{text}}</label>\
                                     <button  onclick="destroy({{@index}})" class="destroy"></button>\
                                 </div>\
-                                <input class="edit"  onblur="endEdit({{@index}})" value="{{text}}">\
+                                <input class="edit"  onblur="endEdit({{@index}})"  nc-class="itemTextBox" value="{{text}}">\
                             </li>\
                         {{/show}}\
                     {{/items}}\
