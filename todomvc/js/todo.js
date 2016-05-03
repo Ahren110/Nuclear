@@ -1,25 +1,38 @@
 ﻿/// <reference path="../node_modules/alloynuclear/dist/nuclear.js" />
 var Todo = Nuclear.create({
+    install:function(){
+        this.editingIndex = -1;
+        this.focus=true;
+    },
     installed: function () {
         window.addEventListener('keyup', function (evt) {
-            if (evt.keyCode === 13 && document.activeElement.id === 'new-todo' && this.textBox.value.trim() !== '') {
-                this.option.items.push({ text: this.textBox.value.trim(), isCompleted: false ,show:true , isEditing :false});
-                this.option.inputValue = '';
+            if (evt.keyCode === 13 ) {
+                if( document.activeElement.id === 'new-todo' && this.textBox.value.trim() !== '') {
+                    this.option.items.push({
+                        text: this.textBox.value.trim(),
+                        isCompleted: false,
+                        show: true,
+                        isEditing: false
+                    });
+                    this.option.inputValue = '';
+                    this.focus = true;
+                }else{
+                    if(this.editingIndex!==-1){
+                        this.focus = false;
+                        var input=this.node.querySelectorAll('.edit')[this.editingIndex];
+                        input.blur();
+                        this.option.items[this.editingIndex].text=input.value;
+                        this.editingIndex=-1;
+                    }
+                }
             }
         }.bind(this), false);
     },
+    focusHandler:function(){
+        this.focus=true;
+    },
     onRefresh: function () {
-        var editingIndex=-1;
-        this.option.items.forEach(function (item, index,array) {
-            if(array[index].isEditing) editingIndex=index;
-        });
-        if(editingIndex===-1){
-            this.textBox.focus();
-        }else{
-            console.log(this.itemTextBox)
-            console.log( this.itemTextBox[editingIndex])
-            this.itemTextBox[editingIndex].focus();
-        }
+        this.focus&&this.textBox.focus();
     },
     toggleState: function (index) {
         this.option.items[index].isCompleted = this.option.items[index].isCompleted ? false : true;
@@ -51,17 +64,19 @@ var Todo = Nuclear.create({
             }
         });
     },
-    edit: function (currentIndex) {
-        this.option.items.forEach(function (item, index,array) {
-            array[index].isEditing = (currentIndex === index);
-        });
+    edit: function (currentIndex,li) {
+        var input=li.querySelector('.edit');
+        this.editingIndex = currentIndex;
+        util.addClass( li,'editing');
+        input.focus();
+        input.value=input.value;
     },
-    endEdit: function (currentIndex) {
-        this.option.items.forEach(function (item, index, array) {
-            if (currentIndex === index) {
-                array[index].isEditing = false;
-            }
-        });
+    endEdit: function (currentIndex,input) {
+        var li= input.parentNode;
+        util.removeClass( li,'editing');
+        this.editValue=input.value;
+        li.querySelector('label').innerHTML= input.value;
+
     },
     render: function () {
         var left = 0, filter = this.option.filter;
@@ -74,7 +89,7 @@ var Todo = Nuclear.create({
 
         return '<header id="header">\
 				    <h1>todos</h1>\
-				    <input nc-id="textBox" id="new-todo" value="{{inputValue}}" placeholder="What needs to be done?" autofocus>\
+				    <input nc-id="textBox" onfocus="focusHandler()" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>\
 			    </header>\
 			    <section id="main">\
 				    <input id="toggle-all" type="checkbox">\
@@ -82,12 +97,12 @@ var Todo = Nuclear.create({
 				    <ul id="todo-list">\
                        {{#items}}\
                          {{#show}}\
-                            <li ondblclick="edit({{@index}})" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">\
+                            <li ondblclick="edit({{@index}},this)" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">\
                                 <div class="view" >\
                                     <input  onclick="toggleState({{@index}})" class="toggle" type="checkbox" {{#isCompleted}}checked{{/isCompleted}}><label >{{text}}</label>\
                                     <button  onclick="destroy({{@index}})" class="destroy"></button>\
                                 </div>\
-                                <input class="edit"  onblur="endEdit({{@index}})"  nc-class="itemTextBox" value="{{text}}">\
+                                <input class="edit"  onblur="endEdit({{@index}},this)"  nc-class="itemTextBox" value="{{text}}">\
                             </li>\
                         {{/show}}\
                     {{/items}}\
