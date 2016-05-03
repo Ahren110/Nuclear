@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "dependencies": {
+    "alloynuclear": "^0.1.8",
+    "director": "^1.2.0",
+    "todomvc-common": "^1.0.0",
+    "todomvc-app-css": "^1.0.0"
+  }
+}
