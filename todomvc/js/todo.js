@@ -3,13 +3,13 @@ var Todo = Nuclear.create({
     installed: function () {
         window.addEventListener('keyup', function (evt) {
             if (evt.keyCode === 13 && document.activeElement.id === 'new-todo' && this.textBox.value.trim() !== '') {
-                this.option.items.unshift({ text: this.textBox.value.trim(), isCompleted: false ,show:true});
+                this.option.items.push({ text: this.textBox.value.trim(), isCompleted: false ,show:true , isEditing :false});
                 this.option.inputValue = '';
             }
         }.bind(this), false);
     },
     onRefresh: function () {
-        this.textBox.focus();
+       // this.textBox.focus();
     },
     toggleState: function (index) {
         this.option.items[index].isCompleted = this.option.items[index].isCompleted ? false : true;
@@ -41,6 +41,19 @@ var Todo = Nuclear.create({
             }
         });
     },
+    edit: function (currentIndex) {
+        this.option.items.forEach(function (item, index,array) {
+            array[index].isEditing = (currentIndex === index);
+        });
+        
+    },
+    endEdit: function (currentIndex) {
+        this.option.items.forEach(function (item, index, array) {
+            if (currentIndex === index) {
+                array[index].isEditing = false;
+            }
+        });
+    },
     render: function () {
         var left = 0, filter = this.option.filter;
         this.option.items.forEach(function (item) {
@@ -60,12 +73,12 @@ var Todo = Nuclear.create({
 				    <ul id="todo-list">\
                        {{#items}}\
                          {{#show}}\
-                            <li class="{{#isCompleted}}completed{{/isCompleted}}">\
+                            <li ondblclick="edit({{@index}})" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">\
                                 <div class="view" >\
                                     <input  onclick="toggleState({{@index}})" class="toggle" type="checkbox" {{#isCompleted}}checked{{/isCompleted}}><label >{{text}}</label>\
                                     <button  onclick="destroy({{@index}})" class="destroy"></button>\
                                 </div>\
-                                <input class="edit" value="sdfds">\
+                                <input class="edit"  onblur="endEdit({{@index}})" value="{{text}}">\
                             </li>\
                         {{/show}}\
                     {{/items}}\
