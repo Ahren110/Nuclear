@@ -1,29 +1,20 @@
-# Vue.js TodoMVC Example
+![preview](http://alloyteam.github.io/Nuclear/img/nuclear.png)
 
-> Vue.js is a library for building interactive web interfaces. 
-It provides data-driven, nestable view components with a simple and flexible API.
+Some HTML + Scoped CSS + JS  ===  Reusable Component
 
-> _[Vue.js - vuejs.org](http://vuejs.org)_
+# Preview
 
-## Learning Vue.js
+![preview](http://alloyteam.github.io/Nuclear/img/guide.png)
 
-The [Vue.js website](http://vuejs.org/) is a great resource to get started.
+Several examples on [the website](http://alloyteam.github.io/Nuclear/en.html).
 
-Here are some links you may find helpful:
+Performance-testing on [the website](http://alloyteam.github.io/Nuclear/pt/).
 
-* [Official Guide](http://vuejs.org/guide/)
-* [API Reference](http://vuejs.org/api/)
-* [Examples](http://vuejs.org/examples/)
-* [Building Larger Apps with Vue.js](http://vuejs.org/guide/application.html)
+# Many thanks to
+* [observe.js](https://github.com/kmdjs/observejs)
+* [react.js](http://facebook.github.io/react/) 
+* [mustache.js](https://github.com/janl/mustache.js) 
+* [scoper.js](https://github.com/thomaspark/scoper) 
 
-Get help from other Vue.js users:
-
-* [Vue.js on Twitter](https://twitter.com/vuejs)
-* [Vue.js on Gitter](https://gitter.im/vuejs/vue)
-* [Vue.js Forum](http://forum.vuejs.org)
-
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
-
-## Credit
-
-This TodoMVC application was created by [Evan You](http://evanyou.me).
+# License
+This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
