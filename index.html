@@ -12,7 +12,7 @@
             max-width:920px;
             font-size:15px;
         }
-        textarea{
+        .playgroundCodeTop,textarea{
             border:1px solid #ccc;
         }
     </style>
@@ -117,6 +117,51 @@
                         <p>1：一个组件会依赖option，上面的option是<code>{items:[]}</code>；<br />2：代码里可以通过this.option访问其下面所有属性。option的变更会自动更新dom<br />3：模板里可以直接访问到option的属性<br />4：add方法不用担心会调用全局的，Nuclear会帮你处理好，add就是调用自身的add。<br />5：button和h3的样式都是局部的，不污染其他组件<br />6：可以通过标记nc-id的方式快速访问dom元素<br />其他 ：如果你讨厌反斜杠可以<a href="example.html" target="_blank">点击这里看看</a>
                            
                         </p>
+                    </div>
+
+                    <div>
+                        <h3>反斜杠解药:使用template标签</h3>
+                        <div class="playgroundCodeTop">
+                       <pre class="javascript hljs"><code class="js">&lt;div id=<span class="hljs-string">"todoListContainer"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">template</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"myTemplate"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">style</span> <span class="hljs-attribute">scoped</span>&gt;</span><span class="css">
+        <span class="hljs-tag">h3</span> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">red</span></span>; <span class="hljs-rule">}</span></span>
+        <span class="hljs-tag">button</span><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">green</span></span>;<span class="hljs-rule">}</span></span>
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">style</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>{{#items}}<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{.}}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>{{/items}}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onsubmit</span>=<span class="hljs-value">"add(event)"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">nc-id</span>=<span class="hljs-value">"textBox"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>Add #{{items.length}}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+        install:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.todoTpl = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">"#myTemplate"</span>).innerHTML;
+        },
+        add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            evt.preventDefault();
+            <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        },
+        render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.todoTpl;
+        }
+    });
+
+    <span class="hljs-keyword">new</span> TodoApp({ items: [] }, <span class="hljs-string">"#todoListContainer"</span>);
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</span></code></pre></div>
+
+                        <p>不用担心template标签的兼容性问题，Nuclear帮你处理好了。支持所有现代浏览器(包括IE9+)</p>
                     </div>
           
                 </div>

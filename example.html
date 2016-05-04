@@ -7,6 +7,14 @@
     <link href="css/stylesheet.css" rel="stylesheet" />
     <link href="css/code.css" rel="stylesheet" />
     <link href="css/demo.css" rel="stylesheet" />
+    <style>
+        .example .playgroundCode{
+            border:none;
+        }
+        pre{
+            border:1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
    
@@ -46,9 +54,51 @@
         
             <section class="home-section">
                 <div id="examples">
-                 
                     <div>
-                        <h3>反斜杠解药1:ES6</h3>
+                        <h3>反斜杠解药1:使用template标签</h3>
+                       <pre class="javascript hljs"><code class="js">&lt;div id=<span class="hljs-string">"todoListContainer"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">template</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"myTemplate"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">style</span> <span class="hljs-attribute">scoped</span>&gt;</span><span class="css">
+        <span class="hljs-tag">h3</span> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">red</span></span>; <span class="hljs-rule">}</span></span>
+        <span class="hljs-tag">button</span><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">green</span></span>;<span class="hljs-rule">}</span></span>
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">style</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>{{#items}}<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{.}}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>{{/items}}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onsubmit</span>=<span class="hljs-value">"add(event)"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">nc-id</span>=<span class="hljs-value">"textBox"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>Add #{{items.length}}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+        install:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.todoTpl = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">"#myTemplate"</span>).innerHTML;
+        },
+        add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            evt.preventDefault();
+            <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        },
+        render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.todoTpl;
+        }
+    });
+
+    <span class="hljs-keyword">new</span> TodoApp({ items: [] }, <span class="hljs-string">"#todoListContainer"</span>);
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</span></code></pre>
+                        <p>不用担心template标签的兼容性问题，Nuclear帮你处理好了。支持所有现代浏览器(包括IE9+)</p>
+                    </div>
+
+                    <div>
+                        <h3>反斜杠解药2:ES6</h3>
                         <pre class="javascript hljs"><code class="js" ><span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
     add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
         evt.preventDefault();
@@ -73,7 +123,7 @@
                         <p> 【墙裂声明】不适应反斜杠的话直接上ES6  template literals -->: <a href="http://babeljs.io/repl/#?evaluate=true&presets=es2015%2Creact%2Cstage-2&experimental=false&loose=false&spec=false&code=var%20TodoApp%20%3D%20Nuclear.create(%7B%0D%0A%20%20%20%20add%3A%20function%20(evt)%20%7B%0D%0A%20%20%20%20%20%20%20%20evt.preventDefault()%3B%0D%0A%20%20%20%20%20%20%20%20this.option.items.push(this.textBox.value)%3B%0D%0A%20%20%20%20%7D%2C%0D%0A%20%20%20%20render%3A%20function%20()%20%7B%0D%0A%20%20%20%20%20%20%20%20return%20%60%3Cdiv%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Ch3%3ETODO%3C%2Fh3%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cul%3E%20%7B%7B%23items%7D%7D%20%3Cli%3E%7B%7B.%7D%7D%3C%2Fli%3E%20%7B%7B%2Fitems%7D%7D%3C%2Ful%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cform%20onsubmit%3D%22add(event)%22%20%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20nc-id%3D%22textBox%22%20type%3D%22text%22%20%20%2F%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cbutton%3EAdd%20%23%7B%7Bitems.length%7D%7D%3C%2Fbutton%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fform%3E%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%60%3B%0D%0A%20%20%20%20%7D%2C%0D%0A%20%20%20%20style%3A%20function%20()%20%7B%0D%0A%20%20%20%20%20%20%20%20return%20%60h3%20%7B%20color%3Ared%3B%20%7D%0D%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20button%7B%20color%3Agreen%3B%7D%60%3B%0D%0A%20%20%20%20%7D%0D%0A%7D)%3B" target="_blank">点我点我</a></p>
                     </div>
                     <div>
-                        <h3>反斜杠解药2:拆分到文件</h3>
+                        <h3>反斜杠解药3:拆分到文件</h3>
                         <p>模板文件todo/index.html</p>
                         <pre class="javascript hljs"><code class="js">&lt;div&gt;
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
@@ -107,58 +157,6 @@
                          <p>明显可以看到，很容易放弃模板和CSS可编程性，把他们独立放到单独的文件夹里去。发布的时候可以通过构建将他们又放到一起。当然loadFile方法需要做好开发环境和合并之后的发布线上环境的兼容，这个不是什么困难的问题。</p>
                     </div>
 
-                    <div>
-                        <h3>反斜杠解药3:模板写在HTML标签里</h3>
-                        <pre class="javascript hljs"><code class="js" >&lt;!DOCTYPE html&gt;
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"utf-8"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Nuclear<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"todoListContainer"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"display: none;"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">style</span> <span class="hljs-attribute">scoped</span>&gt;</span><span class="css">
-            <span class="hljs-tag">h3</span> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">red</span></span>; <span class="hljs-rule">}</span></span>
-            <span class="hljs-tag">button</span><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">green</span></span>;<span class="hljs-rule">}</span></span>
-        </span><span class="hljs-tag">&lt;/<span class="hljs-title">style</span>&gt;</span>
-
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>{{#items}}<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{.}}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>{{/items}}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onsubmit</span>=<span class="hljs-value">"add(event)"</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">nc-id</span>=<span class="hljs-value">"textBox"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
-                    <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>Add #{{items.length}}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-                <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
-            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"http://alloyteam.github.io/Nuclear/js/nuclear.min.js"</span>&gt;</span><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-
-    <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
-        <span class="hljs-keyword">var</span> todoTpl = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">"#todoListContainer"</span>).innerHTML;
-
-        <span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
-            add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
-                evt.preventDefault();
-                <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
-            },
-            render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-                <span class="hljs-keyword">return</span> todoTpl;
-            },
-            installed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-                <span class="hljs-keyword">this</span>.node.parentNode.style.display = <span class="hljs-string">"block"</span>;
-            }
-        });
-
-        <span class="hljs-keyword">new</span> TodoApp({ items: [] }, <span class="hljs-string">"#todoListContainer"</span>);
-    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
-</span></code></pre>
-                        <p>可以看到，为了防止模板文件直接展示出来，在容器节点加了<code>display:none</code>,在组件<code>installed</code>事件触发时候再显示出来。这里模板文件的标签就是组件渲染的容器。</p>
-                    </div>
                     <div class="example">
                         <h3 id="e1">声明式事件绑定</h3>
                         <div  class="todoExample">
