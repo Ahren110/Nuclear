@@ -12,7 +12,7 @@
             max-width:920px;
             font-size:15px;
         }
-        textarea{
+        .playgroundCodeTop,textarea{
             border:1px solid #ccc;
         }
     </style>
@@ -116,7 +116,51 @@
                         </div>
                         <p>1: A component will depend on one option, the option is above {items: []}.<br />2: The following code can access all its properties through this.option. option changes will automatically update dom.<br />3: You can access directly to the option properties in a template.<br />4: Add method calls without fear of global, Nuclear will help you deal with, add that calls itself add.<br />5: Button style and h3 are local, do not pollute the other components.<br />6: You can quickly access the dom element by way mark nc-id.<br />other ：if you are back-slant hater,<a href="example.html" target="_blank"> try the solution!</a></p>
                     </div>
-          
+
+                    <div>
+                        <h3>back-slant hater:using template tag</h3>
+                        <div class="playgroundCodeTop">
+                       <pre class="javascript hljs"><code class="js">&lt;div id=<span class="hljs-string">"todoListContainer"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">template</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"myTemplate"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">style</span> <span class="hljs-attribute">scoped</span>&gt;</span><span class="css">
+        <span class="hljs-tag">h3</span> <span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">red</span></span>; <span class="hljs-rule">}</span></span>
+        <span class="hljs-tag">button</span><span class="hljs-rules">{ <span class="hljs-rule"><span class="hljs-attribute">color</span>:<span class="hljs-value">green</span></span>;<span class="hljs-rule">}</span></span>
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">style</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">h3</span>&gt;</span>TODO<span class="hljs-tag">&lt;/<span class="hljs-title">h3</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>{{#items}}<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>{{.}}<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>{{/items}}<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">onsubmit</span>=<span class="hljs-value">"add(event)"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">nc-id</span>=<span class="hljs-value">"textBox"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>Add #{{items.length}}<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    <span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+        install:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">this</span>.todoTpl = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">"#myTemplate"</span>).innerHTML;
+        },
+        add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+            evt.preventDefault();
+            <span class="hljs-keyword">this</span>.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        },
+        render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.todoTpl;
+        }
+    });
+
+    <span class="hljs-keyword">new</span> TodoApp({ items: [] }, <span class="hljs-string">"#todoListContainer"</span>);
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+</span></code></pre></div>
+
+                        <p>Don't worry about the compatibility of template tags, Nuclear automatically help you deal with it. Support for all modern browsers (including IE9+)</p>
+                    </div>
                 </div>
 
                 <div class="example">
