@@ -1,14 +1,16 @@
 ﻿/// <reference path="../node_modules/alloynuclear/dist/nuclear.js" />
 var Todo = Nuclear.create({
-    install:function(){
+    install: function () {
         this.editingIndex = -1;
-        this.focus=true;
+        this.focus = true;
+        //神坑：模板里的allChecked会变成allchecked
+        this.tpl = document.querySelector('#myTpl').innerHTML;
     },
     installed: function () {
         window.addEventListener('keyup', function (evt) {
-            if (evt.keyCode === 13 ) {
-                if( document.activeElement.id === 'new-todo' && this.textBox.value.trim() !== '') {
-                    this.option.items.push({
+            if (evt.keyCode === 13) {
+                if (document.activeElement.id === 'new-todo' && this.textBox.value.trim() !== '') {
+                    this.option.items.unshift({
                         text: this.textBox.value.trim(),
                         isCompleted: false,
                         show: true,
@@ -16,23 +18,29 @@ var Todo = Nuclear.create({
                     });
                     this.option.inputValue = '';
                     this.focus = true;
-                }else{
-                    if(this.editingIndex!==-1){
+                } else {
+                    if (this.editingIndex !== -1) {
                         this.focus = false;
-                        var input=this.node.querySelectorAll('.edit')[this.editingIndex];
+                        var input = this.node.querySelectorAll('.edit')[this.editingIndex];
                         input.blur();
-                        this.option.items[this.editingIndex].text=input.value;
-                        this.editingIndex=-1;
+                        this.option.items[this.editingIndex].text = input.value;
+                        this.editingIndex = -1;
                     }
                 }
             }
         }.bind(this), false);
     },
-    focusHandler:function(){
-        this.focus=true;
+    toggleAll:function() {
+        var isChecked = this.toggleAllBtn.checked;
+        this.option.items.forEach(function (item) {
+            item.isCompleted = isChecked;
+        })
+    },
+    focusHandler: function () {
+        this.focus = true;
     },
     onRefresh: function () {
-        this.focus&&this.textBox.focus();
+        this.focus && this.textBox.focus();
     },
     toggleState: function (index) {
         this.option.items[index].isCompleted = this.option.items[index].isCompleted ? false : true;
@@ -49,13 +57,13 @@ var Todo = Nuclear.create({
             }
         }
     },
-    filter: function (evt, type) {
+    filter: function (evt, type,dom) {
         evt.preventDefault();
         this.option.filter = type;
         this.option.items.forEach(function (item) {
             if (type === 'all') {
                 item.show = true;
-            } else if (type === 'active'&&!item.isCompleted) {
+            } else if (type === 'active' && !item.isCompleted) {
                 item.show = true;
             } else if (type === 'completed' && item.isCompleted) {
                 item.show = true;
@@ -64,66 +72,38 @@ var Todo = Nuclear.create({
             }
         });
     },
-    edit: function (currentIndex,li) {
-        var input=li.querySelector('.edit');
+    edit: function (currentIndex, li) {
+        var input = li.querySelector('.edit');
         this.editingIndex = currentIndex;
-        util.addClass( li,'editing');
+        util.addClass(li, 'editing');
         input.focus();
-        input.value=input.value;
+        input.value = input.value;
     },
-    endEdit: function (currentIndex,input) {
-        var li= input.parentNode;
-        util.removeClass( li,'editing');
-        this.editValue=input.value;
-        li.querySelector('label').innerHTML= input.value;
+    endEdit: function (currentIndex, input) {
+        var li = input.parentNode;
+        util.removeClass(li, 'editing');
+        this.editValue = input.value;
+        li.querySelector('label').innerHTML = input.value;
 
     },
     render: function () {
-        var left = 0, filter = this.option.filter;
+        var left = 0;
         this.option.items.forEach(function (item) {
-            if(!item.isCompleted ){
+            if (!item.isCompleted) {
+                item.checked = "";
                 left++
+            } else {
+                item.checked = "checked";
             }
         })
-        var completed = this.option.items.length - left;
+        this.option['all'] = '';
+        this.option['active'] = '';
+        this.option['completed'] = '';
+        this.option[this.option.filter] = 'selected';
+        this.option.clearWording = this.option.items.length - left > 0 ? 'Clear completed' : '';
+        this.option.left = left;
+        this.option.allchecked = left === 0 ? 'checked' : '';
 
-        return '<header id="header">\
-				    <h1>todos</h1>\
-				    <input nc-id="textBox" onfocus="focusHandler()" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>\
-			    </header>\
-			    <section id="main">\
-				    <input id="toggle-all" type="checkbox">\
-				    <label for="toggle-all">Mark all as complete</label>\
-				    <ul id="todo-list">\
-                       {{#items}}\
-                         {{#show}}\
-                            <li ondblclick="edit({{@index}},this)" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">\
-                                <div class="view" >\
-                                    <input  onclick="toggleState({{@index}})" class="toggle" type="checkbox" {{#isCompleted}}checked{{/isCompleted}}><label >{{text}}</label>\
-                                    <button  onclick="destroy({{@index}})" class="destroy"></button>\
-                                </div>\
-                                <input class="edit"  onblur="endEdit({{@index}},this)"  nc-class="itemTextBox" value="{{text}}">\
-                            </li>\
-                        {{/show}}\
-                    {{/items}}\
-				    </ul>\
-			    </section>\
-			    <footer id="footer">\
-				    <span id="todo-count"><strong>' + left + '</strong> item left</span>\
-				    <ul id="filters">\
-					    <li>\
-						    <a id="filterAll"  onclick="filter(event,\'all\')" class="' + (filter === 'all' ? 'selected' : '') + '" href="#/">All</a>\
-					    </li>\
-					    <li>\
-						    <a id="filterActive"  onclick="filter(event,\'active\')"  class="' + (filter === 'active' ? 'selected' : '') + '"  href="#/active">Active</a>\
-					    </li>\
-					    <li>\
-						    <a id="filterCompleted" onclick="filter(event,\'completed\')"  class="' + (filter === 'completed' ? 'selected' : '') + '"   href="#/completed">Completed</a>\
-					    </li>\
-				    </ul>\
-				    <button id="clear-completed" onclick="clearCompleted()">' + (completed > 0 ? ' Clear completed' : '') + '</button>\
-			    </footer>';
+        return this.tpl;
     }
-
-
 })
