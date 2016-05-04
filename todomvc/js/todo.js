@@ -57,7 +57,7 @@ var Todo = Nuclear.create({
             }
         }
     },
-    filter: function (evt, type,dom) {
+    filter: function (evt, type) {
         evt.preventDefault();
         this.option.filter = type;
         this.option.items.forEach(function (item) {
@@ -82,7 +82,6 @@ var Todo = Nuclear.create({
     endEdit: function (currentIndex, input) {
         var li = input.parentNode;
         util.removeClass(li, 'editing');
-        this.editValue = input.value;
         li.querySelector('label').innerHTML = input.value;
 
     },
