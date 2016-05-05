@@ -5,12 +5,15 @@
 		<title>Nuclear • TodoMVC</title>
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<style>
+			template { display: none !important; }
+		</style>
 	</head>
 	<body>
 	<template id="myTpl">
 		<header id="header">
 			<h1>todos</h1>
-			<input nc-id="textBox" onfocus="focusHandler()" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>
+			<input nc-id="textBox" onfocus="focusHandler()" onblur="blurHandler()" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>
 		</header>
 		<section id="main">
 			<input id="toggle-all" nc-id="toggleAllBtn" onchange="toggleAll()"  type="checkbox" {{allchecked}}=" ">
@@ -18,12 +21,12 @@
 			<ul id="todo-list">
 				{{#items}}
 				{{#show}}
-				<li ondblclick="edit({{@index}},this)" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">
+				<li ondblclick="edit('{{@index}}',this)" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">
 					<div class="view" >
-						<input  onclick="toggleState({{@index}})" class="toggle" type="checkbox" {{checked}} ><label >{{text}}</label>
-						<button  onclick="destroy({{@index}})" class="destroy"></button>
+						<input  onclick="toggleState('{{@index}}')" class="toggle" type="checkbox" {{checked}} ><label >{{text}}</label>
+						<button  onclick="destroy('{{@index}}')" class="destroy"></button>
 					</div>
-					<input class="edit" onblur="endEdit({{@index}},this)" nc-class="itemTextBox" value="{{text}}">
+					<input class="edit" onblur="endEdit('{{@index}}',this)" nc-class="itemTextBox" value="{{text}}">
 				</li>
 				{{/show}}
 				{{/items}}

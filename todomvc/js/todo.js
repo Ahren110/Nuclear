@@ -9,7 +9,7 @@ var Todo = Nuclear.create({
     installed: function () {
         window.addEventListener('keyup', function (evt) {
             if (evt.keyCode === 13) {
-                if (document.activeElement.id === 'new-todo' && this.textBox.value.trim() !== '') {
+                if (this.textBox.value.trim() !== '') {
                     this.option.items.unshift({
                         text: this.textBox.value.trim(),
                         isCompleted: false,
@@ -38,6 +38,9 @@ var Todo = Nuclear.create({
     },
     focusHandler: function () {
         this.focus = true;
+    },
+    blurHandler:function(){
+        this.focus = false;
     },
     onRefresh: function () {
         this.focus && this.textBox.focus();
