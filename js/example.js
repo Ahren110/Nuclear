@@ -460,7 +460,7 @@ var Carousel = Nuclear.create({
         var imgCount = this.option.imgs.length;
         return '<div class="nuclear-carousel">\
                     <div style="width: ' + imgCount * 100 + '%; left: ' + this.option.index * -100 + '%;" nc-id="carouselScroll" class="nuclear-carousel-box">\
-                        {{#imgs}}<img style=" width:'+ 100 / imgCount + '%;" src="{{.}}" /> {{/imgs}}\
+                        {{#imgs}}<img style=" width:'+ 100 / imgCount + '%;" src="{{url}}" /> {{/imgs}}\
                     </div>\
                     <div nc-id="nav"  class="nuclear-nav"> \
                         {{#imgs}}<a onclick="to({{@index}})"></a> {{/imgs}}</div>\
@@ -469,7 +469,7 @@ var Carousel = Nuclear.create({
 });
 
 new Carousel({
-    imgs: ["img/room.jpg", "img/sleep.jpg", "img/watch.jpg"],
+    imgs: [{url:"img/room.jpg"}, {url:"img/sleep.jpg"}, {url:"img/watch.jpg"}],
     index: 0
 }, "#carouselContainer");
 
