@@ -526,32 +526,32 @@
                 <p>如上面所示，通过this.abc可以访问到存有所有标记nc-class为abc的数组。</p>
             </div>
 
-            <div class="item">
-                <h2 id="el13">nc-refresh</h2>
-                <div class="describe">标记需要局部刷新的节点</div>        
-                <h4>实例</h4>
-                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.create({
-    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);
-    },
-    keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);
-    },
-    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
-                    &lt;h3&gt;Input&lt;/h3&gt;\
-                    &lt;textarea nc-id="textarea" onkeyup="keyup()" rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;\
-                    &lt;h3&gt;Output&lt;/h3&gt;\
-                    &lt;div class="content" nc-refresh &gt;\
-                        {{{html}}}\
-                    &lt;/div&gt;\
-                &lt;/div&gt;'</span>;
-    }
-});
-</code></pre>
+            <!--<div class="item">-->
+                <!--<h2 id="el13">nc-refresh</h2>-->
+                <!--<div class="describe">标记需要局部刷新的节点</div>        -->
+                <!--<h4>实例</h4>-->
+                <!--<pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> MarkdownEditor = Nuclear.create({-->
+    <!--install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{-->
+        <!--<span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.option.value);-->
+    <!--},-->
+    <!--keyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{-->
+        <!--<span class="hljs-keyword">this</span>.option.html = marked(<span class="hljs-keyword">this</span>.textarea.value);-->
+    <!--},-->
+    <!--render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{-->
+        <!--<span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\-->
+                    <!--&lt;h3&gt;Input&lt;/h3&gt;\-->
+                    <!--&lt;textarea nc-id="textarea" onkeyup="keyup()" rows="10" cols="25"&gt;{{value}}&lt;/textarea&gt;\-->
+                    <!--&lt;h3&gt;Output&lt;/h3&gt;\-->
+                    <!--&lt;div class="content" nc-refresh &gt;\-->
+                        <!--{{{html}}}\-->
+                    <!--&lt;/div&gt;\-->
+                <!--&lt;/div&gt;'</span>;-->
+    <!--}-->
+<!--});-->
+<!--</code></pre>-->
 
-                <p>两种情况下希望局部刷新：1，input输入时防止失去焦点；2：组件太大时防止性能低下。这两种情况可以通过标记nc-refresh来指定局部刷新的节点。</p>
-            </div>
+                <!--<p>两种情况下希望局部刷新：1，input输入时防止失去焦点；2：组件太大时防止性能低下。这两种情况可以通过标记nc-refresh来指定局部刷新的节点。</p>-->
+            <!--</div>-->
              <div class="footer"></div>
         </div>
          
@@ -569,7 +569,7 @@
             },
             render: function () {
                 return '    <div class="pure-menu pure-menu-open" style="width: 250px; position: fixed; top: 60px; left: 20px;">\
-                                <a class="pure-menu-heading" style="font-size: 18px;">Nuclear API(0.1.9)</a>\
+                                <a class="pure-menu-heading" style="font-size: 18px;">Nuclear API(0.2.0)</a>\
                                 <ul>\
                                     <li class="pure-menu-heading">Core</li>\
                                     <li><a href="#el1"  onclick="scrollTo(event,this)">Nuclear.create</a></li>\
@@ -588,7 +588,6 @@
                                     <li class="pure-menu-heading">Special Marks</li>\
                                     <li><a href="#el11"  onclick="scrollTo(event,this)">nc-id</a></li>\
                                     <li><a href="#el12"  onclick="scrollTo(event,this)">nc-class</a></li>\
-                                    <li><a href="#el13"  onclick="scrollTo(event,this)">nc-refresh</a></li>\
                                 </ul>\
                             </div>';
             }
