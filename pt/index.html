@@ -40,7 +40,8 @@
                 </table>';
             }
         },{
-            twoWay:false
+            twoWay:false,
+            diff:false
         });
 
         var app = new Test( { databases: ENV.generateData().toArray() },"#container");
