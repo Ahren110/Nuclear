@@ -7,6 +7,7 @@
             this.option.html = marked(this.option.value);
         },
         keyup: function () {
+            this.option.value = this.textarea.value;
             this.option.html = marked(this.textarea.value);
         },
         render: function () {
@@ -14,7 +15,7 @@
                 <h3>Input</h3>\
                 <textarea nc-id="textarea" onkeyup="keyup()" rows="10" cols="25">{{value}}</textarea>\
                 <h3>Output</h3>\
-                <div class="content" nc-refresh >\
+                <div class="content" >\
                     {{{html}}}\
                 </div>\
             </div>';
