@@ -1,4 +1,4 @@
-﻿var todo=new Todo({
+﻿var todo = new Todo({
     inputValue: '',
     filter: 'all',
     items: []
