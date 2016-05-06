@@ -2,7 +2,7 @@
   "nuclear": {
 	"name": "Nuclear",
 	"description": "Some HTML + Scoped CSS + JS === Reusable Component. Nuclear is a lightweight framework for creating applications based upon reusable component.",
-	"homepage": "alloyteam.github.io/Nuclear/",
+	"homepage": "alloyteam.github.io/Nuclear/en.html",
 	"examples": [{
 	  "name": "Example",
 	  "url": "examples/nuclear"
