@@ -10,6 +10,9 @@
 	"link_groups": [{
 	  "heading": "Official Resources",
 	  "links": [{
+		"name": "Website",
+		"url": "http://alloyteam.github.io/Nuclear/"
+	  },{
 		"name": "Documentation",
 		"url": "http://alloyteam.github.io/Nuclear/api.html"
 	  },  {
