@@ -78,15 +78,15 @@ var Todo = Nuclear.create({
     edit: function (currentIndex, li) {
         var input = li.querySelector('.edit');
         this.editingIndex = currentIndex;
-        util.addClass(li, 'editing');
+        this.option.items[currentIndex].isEditing = true;
         input.focus();
         input.value = input.value;
+
+
     },
     endEdit: function (currentIndex, input) {
-        var li = input.parentNode;
-        util.removeClass(li, 'editing');
-        li.querySelector('label').innerHTML = input.value;
-
+        this.option.items[currentIndex].text = input.value;
+        this.option.items[currentIndex].isEditing = false;
     },
     render: function () {
         var left = 0;
