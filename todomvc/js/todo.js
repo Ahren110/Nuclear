@@ -81,8 +81,15 @@ var Todo = Nuclear.create({
         this.option.items[currentIndex].isEditing = true;
         input.focus();
         input.value = input.value;
-
-
+    },
+    onRefresh:function(){
+        var i=0;
+        this.option.items.forEach(function (item) {
+            if(item.show) {
+                this.itemCheckBox[i].checked = item.isCompleted;
+                i++;
+            }
+        }.bind(this));
     },
     endEdit: function (currentIndex, input) {
         this.option.items[currentIndex].text = input.value;

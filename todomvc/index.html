@@ -24,7 +24,7 @@
 				{{#show}}
 				<li ondblclick="edit('{{@index}}',this)" class="{{#isCompleted}}completed{{/isCompleted}} {{#isEditing}}editing{{/isEditing}}">
 					<div class="view" >
-						<input  onclick="toggleState('{{@index}}')" class="toggle" type="checkbox" {{checked}} ><label >{{text}}</label>
+						<input  onclick="toggleState('{{@index}}')" class="toggle" type="checkbox" nc-class="itemCheckBox" ><label >{{text}}</label>
 						<button  onclick="destroy('{{@index}}')" class="destroy"></button>
 					</div>
 					<input class="edit" onblur="endEdit('{{@index}}',this)" nc-class="itemTextBox" value="{{text}}">
