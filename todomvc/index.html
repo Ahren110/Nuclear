@@ -17,7 +17,7 @@
 			<input nc-id="textBox" onfocus="focusHandler()" onblur="blurHandler()" id="new-todo" value="{{inputValue}}"  placeholder="What needs to be done?" autofocus>
 		</header>
 		<section id="main">
-			<input id="toggle-all" nc-id="toggleAllBtn" onchange="toggleAll()"  type="checkbox" {{allchecked}}>
+			<input id="toggle-all" nc-id="toggleAllBtn" onchange="toggleAll()"  type="checkbox">
 			<label for="toggle-all">Mark all as complete</label>
 			<ul id="todo-list">
 				{{#items}}

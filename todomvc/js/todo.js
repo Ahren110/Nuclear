@@ -3,7 +3,7 @@ var Todo = Nuclear.create({
     install: function () {
         this.editingIndex = -1;
         this.focus = true;
-        //神坑：模板里的allChecked会变成allchecked
+        //神坑：模板里的html标签里的变量大写会变成小写。如{{AA}}->{{aa}}
         this.tpl = document.querySelector('#myTpl').innerHTML;
     },
     installed: function () {
@@ -83,13 +83,19 @@ var Todo = Nuclear.create({
         input.value = input.value;
     },
     onRefresh:function(){
-        var i=0;
+        var i=0,checkCount=0;
         this.option.items.forEach(function (item) {
             if(item.show) {
                 this.itemCheckBox[i].checked = item.isCompleted;
+                if(item.isCompleted){
+                    checkCount++;
+                }
                 i++;
             }
         }.bind(this));
+        if(i===checkCount){
+            this.toggleAllBtn.checked=true;
+        }
     },
     endEdit: function (currentIndex, input) {
         this.option.items[currentIndex].text = input.value;
@@ -99,19 +105,15 @@ var Todo = Nuclear.create({
         var left = 0;
         this.option.items.forEach(function (item) {
             if (!item.isCompleted) {
-                item.checked = "";
                 left++
-            } else {
-                item.checked = "checked";
             }
-        })
+        });
         this.option['all'] = '';
         this.option['active'] = '';
         this.option['completed'] = '';
         this.option[this.option.filter] = 'selected';
         this.option.clearWording = this.option.items.length - left > 0 ? 'Clear completed' : '';
         this.option.left = left;
-        this.option.allchecked = left === 0 ? 'checked' : '';
 
         return this.tpl;
     }
