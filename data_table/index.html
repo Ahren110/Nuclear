@@ -94,21 +94,33 @@
                 } else {
                     var user = {name: this.nameTextBox.value, age: this.ageTextBox.value, id: this.idTextBox.value};
                     request.editUser(user, function () {
-                        this.option.users[this.indexTextBox.value]=user;
+                        var current=this.option.users[this.indexTextBox.value];
+                        current.name=user.name;
+                        current.age=user.age;
+                        current.id=user.id;
                         this.option.display = 'none';
                     }.bind(this))
                 }
             },
-            showAddPanel:function(){
-                this.option.action='Add';
-                this.option.display='block';
-                this.option.user.name='';
-                this.option.user.age='';
-                this.option.user.id='';
+            onOptionChange:function(a,b,c,d){
+                console.log(a,"current-",b,"old-"+c,d)
+            },
+            showAddPanel:function() {
+                this.option.action = 'Add';
+                this.option.display = 'block';
+
+                this.option.user.name = '';
+                this.option.user.age = '';
+                this.option.user.id = '';
+
+
             },
             render:function(){
                 return this.tpl;
             }
+        },{
+            //diff dom不改input的值？
+            diff:false
         })
 
         //mock request
