@@ -4,32 +4,61 @@
     <meta charset="UTF-8">
     <title>Nuclear</title>
     <link href="../css/pure-min.css" rel="stylesheet" />
+    <style>
+        textarea{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-    <textarea nuclear>
-        <img src="../img/nuclear.png" >
-             <table class="pure-table">
+    <textarea >
+
+
+             <table style="margin: 10px;" class="pure-table">
                  <thead>
                  <tr>
                      <th>#</th>
-                     <th>Make</th>
-                     <th>Model</th>
-                     <th>Year</th>
+                     <th>Name</th>
+                     <th>Age</th>
+                     <th>Edit</th>
+                     <th>Remove</th>
                  </tr>
                  </thead>
 
                  <tbody>
-                 {{#items}}
+                 {{#users}}
                  <tr>
-                     <td>{{.}}</td>
-                     <td>Honda</td>
-                     <td>Accord</td>
-                     <td>2009</td>
+                     <td>{{@index}}</td>
+                     <td>{{name}}</td>
+                     <td>{{age}}</td>
+                     <td><a href="##" onclick="edit({{@item}},{{@index}})">Edit</a></td>
+                     <td><a href="##" onclick="remove({{@item}},{{@index}})">Remove</a></td>
                  </tr>
-                 {{/items}}
+                 {{/users}}
                  </tbody>
+
              </table>
+        <div style="display:{{display}};position: absolute;width: 100%;height: 100%;background-color: rgba(0,0,0,.5);left: 0;top: 0;">
+            <form class="pure-form pure-form-stacked" style="background-color: white; position: absolute;left: 50%;padding:10px;width:300px;height: 300px; border: 1px solid #ccc;
+        margin-left:-150px;margin-top:-150px;top: 40%;border-radius: 10px;" onsubmit="submit(event)">
+                <fieldset>
+                    <legend style="font-size: 24px;font-weight: bold;">{{action}} User</legend>
+
+                    <label for="name">Name</label>
+                    <input  nc-id="indexTextBox" type="hidden" value="{{user.index}}">
+                    <input  nc-id="idTextBox" type="hidden" value="{{user.id}}">
+                    <input id="name" type="text" nc-id="nameTextBox"  value="{{user.name}}" placeholder="Name">
+
+                    <label for="age">Age</label>
+                    <input id="age" type="number" nc-id="ageTextBox" value="{{user.age}}" placeholder="Age">
+
+                    <button type="submit"  class="pure-button pure-button-primary"> {{action}}</button>
+                </fieldset>
+            </form>
+        </div>
+
+          <a style="margin: 10px;" onclick="showAddPanel()" class="pure-button pure-button-primary" href="##">Add User</a>
     </textarea>
     <div id="tableCtn"></div>
     <script src="../js/nuclear.js"></script>
@@ -37,14 +66,83 @@
         var UserList = Nuclear.create({
             install:function(){
                 this.tpl = document.querySelector('textarea').value;
-                console.log(this.tpl )
+            },
+            edit:function(item,index){
+                this.option.action='Edit';
+                this.option.display='block';
+                this.option.user.name=item.name;
+                this.option.user.age=item.age;
+                this.option.user.id=item.id;
+                this.option.user.index=index;
+            },
+            remove:function(item,index){
+                if(confirm('Are you sure you want to delete '+item.name +'?')){
+                    request.removeUser(item.id,function(){
+                        this.option.users.splice(index,1);
+                    }.bind(this));
+                }
+            },
+            submit:function(event) {
+                event.preventDefault();
+                if (this.option.action === 'Add') {
+                    var user = {name: this.nameTextBox.value, age: this.ageTextBox.value};
+                    request.addUser(user, function (id) {
+                        user.id = id;
+                        this.option.users.push(user);
+                        this.option.display = 'none';
+                    }.bind(this))
+                } else {
+                    var user = {name: this.nameTextBox.value, age: this.ageTextBox.value, id: this.idTextBox.value};
+                    request.editUser(user, function () {
+                        this.option.users[this.indexTextBox.value]=user;
+                        this.option.display = 'none';
+                    }.bind(this))
+                }
+            },
+            showAddPanel:function(){
+                this.option.action='Add';
+                this.option.display='block';
+                this.option.user.name='';
+                this.option.user.age='';
+                this.option.user.id='';
             },
             render:function(){
                 return this.tpl;
             }
         })
 
-      //  new UserList({items:[{name:'dntzhang',age:"60"},{name:'hanmeimei',age:"65"}]},'#tableCtn');
+        //mock request
+        var request={};
+        request.getUsers=function(){
+            return [
+                {name:'dntzhang',age:"60",id:24},
+                {name:'lilei',age:"70",id:21214},
+                {name:'wangwu',age:"70",id:55},
+                {name:'sunhai',age:"70",id:155},
+                {name:'james',age:"70",id:5555},
+                {name:'hanmeimei',age:"65",id:8888}];
+        }
+
+        request.removeUser=function(id,callback){
+            callback();
+        }
+
+        request.editUser=function(user,callback){
+            callback();
+        }
+
+        request.addUser=function(user,callback){
+            callback();
+        }
+
+      var ul=  new UserList({
+            users:request.getUsers(),
+            display:'none',
+            action:'',
+            user:{name:'',age:'',id:'',index:''}
+        },'#tableCtn');
+
+
     </script>
 </body>
 </html>
