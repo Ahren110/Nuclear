@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Nuclear</title>
+    <link href="../css/pure-min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <textarea nuclear>
+        <img src="../img/nuclear.png" >
+             <table class="pure-table">
+                 <thead>
+                 <tr>
+                     <th>#</th>
+                     <th>Make</th>
+                     <th>Model</th>
+                     <th>Year</th>
+                 </tr>
+                 </thead>
+
+                 <tbody>
+                 {{#items}}
+                 <tr>
+                     <td>{{.}}</td>
+                     <td>Honda</td>
+                     <td>Accord</td>
+                     <td>2009</td>
+                 </tr>
+                 {{/items}}
+                 </tbody>
+             </table>
+    </textarea>
+    <div id="tableCtn"></div>
+    <script src="../js/nuclear.js"></script>
+    <script>
+        var UserList = Nuclear.create({
+            install:function(){
+                this.tpl = document.querySelector('textarea').value;
+                console.log(this.tpl )
+            },
+            render:function(){
+                return this.tpl;
+            }
+        })
+
+      //  new UserList({items:[{name:'dntzhang',age:"60"},{name:'hanmeimei',age:"65"}]},'#tableCtn');
+    </script>
+</body>
+</html>
