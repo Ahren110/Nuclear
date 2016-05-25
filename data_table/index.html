@@ -118,26 +118,6 @@
             },
             render:function(){
                 return this.tpl;
-            },
-            onRefresh:function() {
-                var elements = this.node.querySelectorAll('input'),
-                    i = 0,
-                    len = elements.length;
-                for (; i < len; i++) {
-                    var element = elements[i];
-                    var type = element.type.toLowerCase();
-                    if (element.getAttribute('value') === '') {
-                        element.value = '';
-                    }
-                    if (type === 'checked' || type === 'radio') {
-                        if (element.hasAttribute('checked')) {
-                            element.checked = 'checked';
-                        } else {
-                            element.checked = false;
-                        }
-
-                    }
-                }
             }
         })
 
