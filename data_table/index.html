@@ -55,9 +55,10 @@
 
                     <button type="submit"  class="pure-button pure-button-primary"> {{action}}</button>
                 </fieldset>
+                <img src="../img/close.png" onclick="close()" style="position:absolute;top:-10px;right: -10px;cursor: pointer;">
             </form>
-        </div>
 
+        </div>
           <a style="margin: 10px;" onclick="showAddPanel()" class="pure-button pure-button-primary" href="##">Add User</a>
     </textarea>
     <div id="tableCtn"></div>
@@ -74,6 +75,9 @@
                 this.option.user.age=item.age;
                 this.option.user.id=item.id;
                 this.option.user.index=index;
+            },
+            close:function(){
+                this.option.display='none';
             },
             remove:function(item,index){
                 if(confirm('Are you sure you want to delete '+item.name +'?')){
@@ -102,9 +106,6 @@
                     }.bind(this))
                 }
             },
-            onOptionChange:function(a,b,c,d){
-                console.log(a,"current-",b,"old-"+c,d)
-            },
             showAddPanel:function() {
                 this.option.action = 'Add';
                 this.option.display = 'block';
@@ -117,10 +118,27 @@
             },
             render:function(){
                 return this.tpl;
+            },
+            onRefresh:function() {
+                var elements = this.node.querySelectorAll('input'),
+                    i = 0,
+                    len = elements.length;
+                for (; i < len; i++) {
+                    var element = elements[i];
+                    var type = element.type.toLowerCase();
+                    if (element.getAttribute('value') === '') {
+                        element.value = '';
+                    }
+                    if (type === 'checked' || type === 'radio') {
+                        if (element.hasAttribute('checked')) {
+                            element.checked = 'checked';
+                        } else {
+                            element.checked = false;
+                        }
+
+                    }
+                }
             }
-        },{
-            //diff dom不改input的值？
-            diff:false
         })
 
         //mock request
@@ -158,3 +176,4 @@
     </script>
 </body>
 </html>
+
