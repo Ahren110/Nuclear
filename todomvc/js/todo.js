@@ -16,8 +16,9 @@ var Todo = Nuclear.create({
                         show: true,
                         isEditing: false
                     });
-                    this.option.inputValue = '';
                     this.focus = true;
+                    this.option.inputValue = '';
+
                 } else {
                     if (this.editingIndex !== -1) {
                         this.focus = false;
@@ -42,9 +43,7 @@ var Todo = Nuclear.create({
     blurHandler:function(){
         this.focus = false;
     },
-    onRefresh: function () {
-        this.focus && this.textBox.focus();
-    },
+
     toggleState: function (index) {
         this.option.items[index].isCompleted = this.option.items[index].isCompleted ? false : true;
     },
@@ -90,6 +89,8 @@ var Todo = Nuclear.create({
                 i++;
             }
         }.bind(this));
+
+        this.focus && this.textBox.focus();
     },
     endEdit: function (currentIndex, input) {
         this.option.items[currentIndex].text = input.value;
