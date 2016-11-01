@@ -118,7 +118,7 @@
                     </div>
 
 					                    <div>
-                        <h3>Declarative Nesting</h3>
+                        <h3>Declarative Nesting(nc-constructor)</h3>
                         <div class="playgroundCodeTop">
                     <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> AA =  {};
 AA.TodoList = Nuclear.create({
@@ -150,8 +150,8 @@ AA.TodoList = Nuclear.create({
     },
     render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
-                    &lt;child nc-class="TodoTitle"&gt;&lt;/child&gt;\
-                    &lt;child nc-class="AA.TodoList"  nc-name="list"&gt;&lt;/child&gt;\
+                    &lt;child nc-constructor="TodoTitle"&gt;&lt;/child&gt;\
+                    &lt;child nc-constructor="AA.TodoList"  nc-name="list"&gt;&lt;/child&gt;\
                     &lt;form onsubmit="add(event)" &gt;\
                       &lt;input nc-id="textBox" type="text"  /&gt;\
                       &lt;button&gt;Add #'</span>+ <span class="hljs-keyword">this</span>.length+<span class="hljs-string">'&lt;/button&gt;\

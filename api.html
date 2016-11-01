@@ -536,6 +536,58 @@
                 <p>如上面所示，通过this.abc可以访问到存有所有标记nc-class为abc的数组。</p>
             </div>
 
+             <div class="item">
+                <h2 id="el16">nc-constructor</h2>
+                <div class="describe">组件嵌套就靠它来标记了</div>        
+                <h4>如下所示</h4>
+             
+               
+                <pre class="javascript hljs"><code class="js"><span class="hljs-keyword">var</span> AA =  {};
+AA.TodoList = Nuclear.create({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;ul&gt; {{#items}} &lt;li&gt;{{.}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">var</span> TodoTitle = Nuclear.create({
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;h3&gt;{{title}}&lt;/h3&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">var</span> TodoApp = Nuclear.create({
+    install: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-comment">//pass options to children</span>
+        <span class="hljs-keyword">this</span>.childrenOptions = [{title: <span class="hljs-string">"Todo"</span>}, {items: []}];
+        <span class="hljs-keyword">this</span>.length = <span class="hljs-number">0</span>;
+    },
+    add: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+        evt.preventDefault();
+        <span class="hljs-comment">//this.nulcearChildren[1].option.items.push(this.textBox.value);</span>
+        <span class="hljs-comment">//or</span>
+        <span class="hljs-keyword">this</span>.list.option.items.push(<span class="hljs-keyword">this</span>.textBox.value);
+        <span class="hljs-keyword">this</span>.length = <span class="hljs-keyword">this</span>.list.option.items.length ;
+        <span class="hljs-comment">//refresh you component</span>
+        <span class="hljs-keyword">this</span>.refresh();
+    },
+    render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'&lt;div&gt;\
+                    &lt;child nc-constructor="TodoTitle"&gt;&lt;/child&gt;\
+                    &lt;child nc-constructor="AA.TodoList"  nc-name="list"&gt;&lt;/child&gt;\
+                    &lt;form onsubmit="add(event)" &gt;\
+                      &lt;input nc-id="textBox" type="text"  /&gt;\
+                      &lt;button&gt;Add #'</span>+ <span class="hljs-keyword">this</span>.length+<span class="hljs-string">'&lt;/button&gt;\
+                     &lt;/form&gt;\
+               &lt;/div&gt;'</span>;
+    }
+});
+
+<span class="hljs-keyword">new</span> TodoApp( { },<span class="hljs-string">"#todoContainer"</span>);
+</code></pre>
+
+                  <p>如上面所示，通过child标签里标记nc-constructor实现了TodoApp里面嵌套了TodoTitle和AA.TodoList。可以通过标记nc-name来快速访问该子节点对象的实例。</p>
+            </div>
+
             <!--<div class="item">-->
                 <!--<h2 id="el13">nc-refresh</h2>-->
                 <!--<div class="describe">标记需要局部刷新的节点</div>        -->
@@ -579,7 +631,7 @@
             },
             render: function () {
                 return '    <div class="pure-menu pure-menu-open" style="width: 250px; position: fixed; top: 60px; left: 20px;">\
-                                <a class="pure-menu-heading" style="font-size: 18px;">Nuclear API(0.3.1)</a>\
+                                <a class="pure-menu-heading" style="font-size: 18px;">Nuclear API(0.4.5)</a>\
                                 <ul>\
                                     <li class="pure-menu-heading">Core</li>\
                                     <li><a href="#el1"  onclick="scrollTo(event,this)">Nuclear.create</a></li>\
@@ -599,6 +651,7 @@
                                     <li class="pure-menu-heading">Special Marks</li>\
                                     <li><a href="#el11"  onclick="scrollTo(event,this)">nc-id</a></li>\
                                     <li><a href="#el12"  onclick="scrollTo(event,this)">nc-class</a></li>\
+                                    <li><a href="#el16"  onclick="scrollTo(event,this)">nc-constructor</a></li>\
                                 </ul>\
                             </div>';
             }
